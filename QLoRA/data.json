@@ -1,0 +1,57 @@
+[
+    {
+        "conversation": [
+            {"role": "system", "content": "Dado un JSON, presenta una lista de la compra donde debes proporcionar un elemento que no deba estar ahí y cuando el usuario acierte, tienes que proporcionar los precios de los elementos y preguntar al usuario por el total. Para llegar al objetivo indicado, si el usuario acierta, sigue, sino empieza de nuevo. JSON: {\"game\": \"ADL sequence\", \"name\": \"María\", \"cognitive impairment\": \"severe\", \"scene description level\": \"use only 30 words\", \"player name\":\"María\", \"hobbies\":[\"cooking\", \"taking care of the garden\"], \"age\":88, \"goal\": \"prepare orange juice\", \"number of steps\": 5, \"scenes\": [ \"id\", 0, \"name\", \"kitchen\", \"props\", \"your sister Ana\" ]}"},
+            {"role": "assistant", "content": "¡Hola, María! Aquí tienes la lista para hacer zumo de naranja: azúcar, naranjas, batidora, hielo, televisión. Hay un error, ¿qué elemento no debes comprar?"},
+            {"role": "user", "content": "La televisión."},
+            {"role": "assistant", "content": "¡Muy bien! Ahora los precios: azúcar, 1 euro; naranjas, 2 euros; batidora, 5 euros; hielo, 1 euro. ¿Cuánto cuesta todo?"},
+            {"role": "user", "content": "Cuesta 9 euros."}
+        ]
+    },
+    {
+        "conversation": [
+            {"role": "system", "content": "Dado un JSON, presenta una lista de la compra donde debes proporcionar un elemento que no deba estar ahí y cuando el usuario acierte, tienes que proporcionar los precios de los elementos y preguntar al usuario por el total. Para llegar al objetivo indicado, si el usuario acierta, sigue, sino empieza de nuevo. JSON: {\"game\": \"ADL sequence\", \"name\": \"Juan\", \"cognitive impairment\": \"mild\", \"scene description level\": \"use only 20 words\", \"player name\":\"Juan\", \"hobbies\":[\"reading\", \"traveling\"], \"age\":75, \"goal\": \"make a salad\", \"number of steps\": 3, \"scenes\": [ \"id\", 1, \"name\", \"garden\", \"props\", \"your friend Luis\" ]}"},
+            {"role": "assistant", "content": "Hola, Juan. Aquí tienes lo que necesitas para la ensalada: lechuga, tomate, colador, pepino, aceite. ¿Qué elemento no pertenece a la lista?"},
+            {"role": "user", "content": "Colador."},
+            {"role": "assistant", "content": "¡Correcto! Ahora te diré el precio de cada uno de los elementos: lechuga, 1 euro; tomate, 2 euros; pepino, 1.5 euros; aceite, 3 euros. ¿Cuál sería el precio total de tu compra?"},
+            {"role": "user", "content": "El total es 7.5 euros."}
+        ]
+    },
+    {
+        "conversation": [
+            {"role": "system", "content": "Dado un JSON, presenta una lista de la compra donde debes proporcionar un elemento que no deba estar ahí y cuando el usuario acierte, tienes que proporcionar los precios de los elementos y preguntar al usuario por el total. Para llegar al objetivo indicado, si el usuario acierta, sigue, sino empieza de nuevo. JSON: {\"game\": \"ADL sequence\", \"name\": \"Ana\", \"cognitive impairment\": \"moderate\", \"scene description level\": \"use only 25 words\", \"player name\":\"Ana\", \"hobbies\":[\"painting\", \"walking\"], \"age\":82, \"goal\": \"bake a cake\", \"number of steps\": 4, \"scenes\": [ \"id\", 2, \"name\", \"living room\", \"props\", \"your daughter Maria\" ]}"},
+            {"role": "assistant", "content": "¡Hola, Ana!, aquí tienes una lista de la compra para hacer un pastel: harina, rallador, azúcar, huevos, leche. ¿Qué elemento no debería estar ahí?"},
+            {"role": "user", "content": "El rallador."},
+            {"role": "assistant", "content": "¡Bien hecho! Ahora te diré los precios: harina, 1.5 euros; azúcar, 2 euros; huevos, 3 euros; leche, 1 euro. ¿Cuál es el total?"},
+            {"role": "user", "content": "Son 7.5 euros."}
+        ]
+    },
+    {
+        "conversation": [
+            {"role": "system", "content": "Dado un JSON, presenta una lista de la compra donde debes proporcionar un elemento que no deba estar ahí y cuando el usuario acierte, tienes que proporcionar los precios de los elementos y preguntar al usuario por el total. Para llegar al objetivo indicado, si el usuario acierta, sigue, sino empieza de nuevo. JSON: {\"game\": \"ADL sequence\", \"name\": \"Carlos\", \"cognitive impairment\": \"mild\", \"scene description level\": \"use only 20 words\", \"player name\":\"Carlos\", \"hobbies\":[\"gardening\", \"fishing\"], \"age\":70, \"goal\": \"prepare a smoothie\", \"number of steps\": 3, \"scenes\": [ \"id\", 3, \"name\", \"kitchen\", \"props\", \"your son Pablo\" ]}"},
+            {"role": "assistant", "content": "¡Hola, Carlos!, aquí tienes una lista de la compra para preparar un batido: plátano, yogur, miel, pescado, licuadora. ¿Qué elemento sobra?"},
+            {"role": "user", "content": "El pescado."},
+            {"role": "assistant", "content": "¡Correcto! Ahora te diré el precio de cada uno de los elementos: plátano, 1 euro; yogur, 0.5 euros; miel, 3 euros; licuadora, 25 euros. ¿Cuál sería el precio total de tu compra?"},
+            {"role": "user", "content": "El total sería de 29.5 euros."}
+        ]
+    },
+    {
+        "conversation": [
+            {"role": "system", "content": "Dado un JSON, presenta una lista de la compra donde debes proporcionar un elemento que no deba estar ahí y cuando el usuario acierte, tienes que proporcionar los precios de los elementos y preguntar al usuario por el total. Para llegar al objetivo indicado, si el usuario acierta, sigue, sino empieza de nuevo. JSON: {\"game\": \"ADL sequence\", \"name\": \"Laura\", \"cognitive impairment\": \"severe\", \"scene description level\": \"use only 30 words\", \"player name\":\"Laura\", \"hobbies\":[\"knitting\", \"singing\"], \"age\":85, \"goal\": \"make a sandwich\", \"number of steps\": 5, \"scenes\": [ \"id\", 4, \"name\", \"kitchen\", \"props\", \"your friend Julia\" ]}"},
+            {"role": "assistant", "content": "¡Hola, Laura!, aquí tienes una lista de la compra para hacer un sándwich necesitas: pan, jamón, zapato, queso, tomate. Hay un error, ¿qué elemento no debes comprar?"},
+            {"role": "user", "content": "Es el zapato."},
+            {"role": "assistant", "content": "¡Muy bien! Ahora te diré los precios: pan, 1 euro; jamón, 2 euros; queso, 2 euros; tomate, 1 euro. ¿Cuál es el total?"},
+            {"role": "user", "content": "6 euros."}
+        ]
+    },
+    {
+        "conversation": [
+            {"role": "system", "content": "Dado un JSON, presenta una lista de la compra donde debes proporcionar un elemento que no deba estar ahí y cuando el usuario acierte, tienes que proporcionar los precios de los elementos y preguntar al usuario por el total. Para llegar al objetivo indicado, si el usuario acierta, sigue, sino empieza de nuevo. JSON: {\"game\": \"ADL sequence\", \"name\": \"Pedro\", \"cognitive impairment\": \"moderate\", \"scene description level\": \"use only 25 words\", \"player name\":\"Pedro\", \"hobbies\":[\"hiking\", \"chess\"], \"age\":78, \"goal\": \"make a fruit salad\", \"number of steps\": 4, \"scenes\": [ \"id\", 5, \"name\", \"kitchen\", \"props\", \"your brother Jorge\" ]}"},
+            {"role": "assistant", "content": "¡Hola, Pedro!, aquí tienes una lista de la compra para hacer una ensalada de frutas: manzana, curry en polvo, plátano, uvas, naranja. ¿Qué elemento no pertenece?"},
+            {"role": "user", "content": "curry en polvo."},
+            {"role": "assistant", "content": "¡Correcto! Ahora te diré los precios: manzana, 1 euro; plátano, 0.5 euros; uvas, 2 euros; naranja, 1 euro. ¿Cuál es el total?"},
+            {"role": "user", "content": "El total es 4.5 euros."}
+        ]
+    }
+]
+
