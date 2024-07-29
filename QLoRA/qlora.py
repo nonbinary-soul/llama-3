@@ -70,25 +70,24 @@ templates = [
 
 IGNORE_INDEX = -100 # we use this to ignore user's tokens
 
-def tokenize(input, max_length, tokenizer):
+# This function formats the input text and response into tokenized sequences, ensuring each input and label is aligned and of the correct length
+def tokenize(data, max_length, tokenizer):
     input_ids, attention_mask, labels = [], [], []
 
-    for i, msg in enumerate([input["command"], input["cfr"]]):
-        isHuman = i % 2 == 0
-        msg_chatml = templates[isHuman].format(msg=msg)
-        msg_tokenized = tokenizer(
-        msg_chatml, truncation=False, add_special_tokens=False)
-        input_ids += msg_tokenized["input_ids"]
-        attention_mask += msg_tokenized["attention_mask"]
-        labels += [IGNORE_INDEX] * len(msg_tokenized["input_ids"]
-    ) if isHuman else msg_tokenized["input_ids"]
+    for message_position, message in enumerate([data["command"], data["cfr"]]):
+        isUser = message_position % 2 == 0
+        formatted_message = templates[isUser].format(msg=message)
+        tokenized_message = tokenizer(formatted_message, truncation=False, add_special_tokens=False)
+        input_ids += tokenized_message["input_ids"]
+        attention_mask += tokenized_message["attention_mask"]
+        labels += [IGNORE_INDEX] * len(tokenized_message["input_ids"]) if isUser else tokenized_message["input_ids"]
 
     assert len(input_ids) == len(attention_mask) == len(labels), "Length mismatch in tokenization."
 
     return {
-        "input_ids": input_ids[:max_length], # tokens of the text
-        "attention_mask": attention_mask[:max_length], # binary tensor that indicates which tokens should be attended
-        "labels": labels[:max_length], # ground truth tokens
+        "input_ids": input_ids[:max_length], # IDs of the tokens of the whole text
+        "attention_mask": attention_mask[:max_length], # indicates which tokens are real (1) and which are padding (0)
+        "labels": labels[:max_length], # IDs of the correct tokens the model should learn to predict
     }
 
 ###################################################################################
@@ -96,9 +95,9 @@ def tokenize(input, max_length, tokenizer):
 def prepare_dataset(tokenizer):
     dataset = load_dataset('json', data_files='data.json', split='train')
     
-    # Showing possible dataset keys to use in 'tokenize' function
+    # Showing possible dataset keys to use in 'tokenize' function. In this case, it is available 'command' and 'cfr'
     example = dataset[0]
-    print("Dataset keys:", example.keys())
+    print("Dataset keys:", example.keys()) 
     
     return dataset.map(
         partial(tokenize, max_length=1024, tokenizer=tokenizer),
@@ -109,7 +108,7 @@ def prepare_dataset(tokenizer):
 
 ###################################################################################
 
-# collate to prepare a batch of data for input to a LLM for training
+# This function pads the input data and organizes it into batches for training
 def collate(elements, tokenizer):
     tokens = [e["input_ids"] for e in elements]
     tokens_maxlen = max([len(t) for t in tokens])
@@ -120,8 +119,8 @@ def collate(elements, tokenizer):
         labels = sample["labels"]
         pad_len = tokens_maxlen - len(input_ids)
         input_ids.extend(pad_len * [tokenizer.pad_token_id]) # pad_len repetions of pad_token_id value
-        attention_mask.extend(pad_len * [0]) # pad_len repetions of 0
-        labels.extend(pad_len * [IGNORE_INDEX]) # pad_len repetions of IGNORE_INDEX value
+        attention_mask.extend(pad_len * [0]) 
+        labels.extend(pad_len * [IGNORE_INDEX]) 
 
     batch = {
         "input_ids": torch.tensor([e["input_ids"] for e in elements]),
@@ -131,22 +130,24 @@ def collate(elements, tokenizer):
 
     return batch
 
-dataset = prepare_dataset(tokenizer)
-
+###################################################################################
+#################################### LoRA #########################################
 ###################################################################################
 
 def find_target_modules(model):
-    # Initialize a Set to Store Unique Layers
+    
+    # Initialize a set to store unique layers
     unique_layers = set()
-    # Iterate Over All Named Modules in the Model
+    
+    # Iterate over all named modules in the model
     for name, module in model.named_modules():
-        # Check if the Module Type Contains 'Linear4bit'
+        # Check if the module type contains 'Linear4bit'
         if "Linear4bit" in str(type(module)):
-            # Extract the Type of the Layer
+            # Extract the type of the layer
             layer_type = name.split('.')[-1]
-            # Add the Layer Type to the Set of Unique Layers
+            # Add the layer type to the set of unique layers
             unique_layers.add(layer_type)
-    # Return the Set of Unique Layers Converted to a List
+    
     return list(unique_layers)
 
 
@@ -198,34 +199,47 @@ training_arguments = TrainingArguments(
 
 # Set supervised fine-tuning parameters
 trainer = Trainer(
-    model=model,
-    tokenizer=tokenizer,
-    args=training_arguments,
-    data_collator=partial(collate, tokenizer=tokenizer),
-    train_dataset=dataset
+    model=model, # model to train
+    tokenizer=tokenizer, # used for tokenizing text during data preparation and potentially for inference
+    args=training_arguments, # argument configuration
+    data_collator=partial(collate, tokenizer=tokenizer), # prepares data into batches 
+    train_dataset=prepare_dataset(tokenizer) # tokenized dataset to adjust the model
 )
 
+######################################################################################################
+# Example using the tokenizer to decode the results, transforming numeric ids into text
+# # Generating predictions
+# predictions = trainer.predict(test_dataset)
+
+# # Decoding the predictions
+# decoded_predictions = tokenizer.batch_decode(predictions.predictions, skip_special_tokens=True)
+######################################################################################################
+
 # Checking vocabulary size
+print("Checking vocabulary size...")
 vocab_size = len(tokenizer)
 embedding_size = model.get_input_embeddings().weight.size(0)
 assert vocab_size == embedding_size, f"Mismatch between vocab size ({vocab_size}) and embedding size ({embedding_size})"
 
-print("training model...")
 # Train model
+print("Training model...")
 trainer.train()
-print("training model finished...")
+print("Model trained!!")
 
 ###################################################################################
 
 # Getting new name for the models
-model_name_lower = MODEL_NAME.split("/")[-1].lower
-new_model_name = model_name_lower+"-qlora"
+modelname_lowercase = MODEL_NAME.split("/")[-1].lower
+new_model_name = modelname_lowercase+"-qlora"
 
 # Save trained model
 trainer.model.save_pretrained(new_model_name)
-print("first model pretrained saved...")
+print("Trained model saved!!")
 
-# Save full model
+# Save base model
 model.save_pretrained(new_model_name)
+print("Base model saved!!")
+
+# Save tokenized model
+print("Tokenized model saved!!")
 tokenizer.save_pretrained(new_model_name)
-print("second model pretrained saved...")
