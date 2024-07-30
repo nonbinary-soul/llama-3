@@ -20,19 +20,13 @@ from datasets import load_dataset
 ###################################################################################
 
 def create_model_and_tokenizer(model_name): 
-    # quantization set up
-    quantization_config = BitsAndBytesConfig(
-        load_in_4bit=True,
-        bnb_4bit_compute_dtype=torch.float16,
-        bnb_4bit_use_double_quant=False, # change to True to get better accuracy
-        bnb_4bit_quant_type='nf4'
-    )
 
     # model creation
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name,
-        quantization_config=quantization_config,
         torch_dtype=torch.float16,
+        max_seq_length = 2048,
+        load_in_4bit = True,
         low_cpu_mem_usage=True,
         trust_remote_code=True,
         device_map={"": 0} # asigns the model to GPU 0
@@ -53,7 +47,7 @@ def create_model_and_tokenizer(model_name):
     return model, tokenizer
 
 # getting model and tokenizer
-MODEL_NAME = "meta-llama/Meta-Llama-3-8B"
+MODEL_NAME = "unsloth/llama-3-8b-bnb-4bit"
 model, tokenizer = create_model_and_tokenizer(MODEL_NAME)
 
 ###################################################################################
