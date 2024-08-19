@@ -1,4 +1,4 @@
-#!/home/lee/miniconda3/envs/llama_env/bin/python3
+#!/home/lee/miniconda3/envs/llama_env/bin/python
 import os
 
 import torch
