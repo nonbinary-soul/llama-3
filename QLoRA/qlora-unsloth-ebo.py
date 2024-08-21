@@ -1,9 +1,11 @@
-#!/home/lee/miniconda3/envs/llama_env/bin/python
+#!/home/lee/miniconda3/envs/unsloth_env/bin/python
 import os
-
+import time 
 import torch
+
 from trl import SFTTrainer
 from unsloth import FastLanguageModel 
+from unsloth import is_bfloat16_supported
 
 from transformers import (
     TrainingArguments,
@@ -19,17 +21,16 @@ from datasets import load_dataset
 
 ###################################################################################
 
+start_time=time.time()
+
 def create_model_and_tokenizer(model_name): 
 
     # model creation
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name,
-        torch_dtype=torch.float16,
         max_seq_length = 2048,
-        load_in_4bit = True,
-        low_cpu_mem_usage=True,
-        trust_remote_code=True,
-        device_map={"": 0} # asigns the model to GPU 0
+        dtype=None,
+        load_in_4bit = True
     )
 
     print("Printing model info...")
@@ -85,7 +86,7 @@ def tokenize(data, max_length, tokenizer):
 ###################################################################################
 
 def prepare_dataset(tokenizer):
-    dataset = load_dataset('json', data_files='data.json', split='train')
+    dataset = load_dataset('json', data_files='default-data.json', split='train')
     
     # Showing possible dataset keys to use in 'tokenize' function. In this case, it is available 'command' and 'cfr'
     example = dataset[0]
@@ -158,9 +159,13 @@ model = FastLanguageModel.get_peft_model(
     r=lora_r,# Lora attention dimension
     lora_alpha=lora_alpha,# Scaling factor that changes how the adaptation layer's weights affect the base model's
     lora_dropout=lora_dropout,
+    bias="none",
+    use_rslora=False,
+    use_gradient_checkpointing = "unsloth",
+    random_state = 3407,
+    loftq_config = None,
     target_modules=target_modules,# List of module names or regex expression of the module names to replace with LoRA
-    modules_to_save=modules_to_save, # List of modules apart from LoRA layers to be set as trainable and saved in the final checkpoint
-    task_type=task_type    
+    modules_to_save=modules_to_save # List of modules apart from LoRA layers to be set as trainable and saved in the final checkpoint
 )
 
 ###################################################################################
@@ -219,7 +224,7 @@ print("Model trained!!")
 ###################################################################################
 
 # Getting new name for the models
-modelname_lowercase = MODEL_NAME.split("/")[-1].lower
+modelname_lowercase = MODEL_NAME.split("/")[-1].lower()
 new_model_name = modelname_lowercase+"-qlora"
 
 # Save trained model
@@ -233,3 +238,9 @@ print("Base model saved!!")
 # Save tokenized model
 print("Tokenized model saved!!")
 tokenizer.save_pretrained(new_model_name)
+
+# Getting total time
+end_time = time.time()
+
+total_duration = end_time - start_time
+print(f"Execution time: {total_duration:.2f} second(s)")
