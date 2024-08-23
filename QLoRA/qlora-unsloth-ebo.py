@@ -172,13 +172,13 @@ model = FastLanguageModel.get_peft_model(
 
 # Set training arguments
 training_arguments = TrainingArguments(
-    output_dir="./results",
+    output_dir="./checkpoints",
     num_train_epochs=3,
     max_steps=-1,
     fp16=False,
     bf16=False,
-    per_device_train_batch_size=1,
-    per_device_eval_batch_size=1,
+    per_device_train_batch_size=4,
+    per_device_eval_batch_size=4,
     gradient_accumulation_steps=1,
     gradient_checkpointing=True,
     learning_rate=2e-4,
