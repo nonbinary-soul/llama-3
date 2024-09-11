@@ -77,19 +77,18 @@ def formatting_prompts_func(examples):
 
 ###################################################################################
 
-def prepare_dataset():
-    dataset = load_dataset('json', data_files='default-data.json', split='train')
-    
-    # Showing possible dataset keys to use in 'tokenize' function. In this case, it is available 'command' and 'cfr'
-    example = dataset[0]
-    print("Dataset keys:", example.keys()) 
-    
-    return dataset.map(
-        formatting_prompts_func,
-        batched=False, # process each input individually
-        num_proc=os.cpu_count(), # use several processes in parallel to accelerate the processing
-        remove_columns=dataset.column_names
-    )
+dataset = load_dataset('json', data_files='default-data.json', split='train')
+
+# Showing possible dataset keys to use in 'tokenize' function. In this case, it is available 'command' and 'cfr'
+example = dataset[0]
+print("Dataset keys:", example.keys()) 
+
+dataset = dataset.map(
+    formatting_prompts_func,
+    batched=True, # process each input individually
+    num_proc=os.cpu_count(), # use several processes in parallel to accelerate the processing
+    remove_columns=dataset.column_names
+)
 
 ###################################################################################
 #################################### LoRA #########################################
@@ -164,8 +163,10 @@ training_arguments = TrainingArguments(
 trainer = SFTTrainer(
     model=model, # model to train
     tokenizer=tokenizer, # used for tokenizing text during data preparation and potentially for inference
+    train_dataset=dataset,
+    dataset_text_field="text",
+    packing=False,
     args=training_arguments, # argument configuration
-    train_dataset=prepare_dataset() 
 )
 
 ######################################################################################################
