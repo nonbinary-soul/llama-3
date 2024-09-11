@@ -216,9 +216,6 @@ print(f"Execution time: {total_duration:.2f} second(s)")
 
 
 # INFERENCE
-# Define prompt template
-llama_prompt = "<start>User\n{}<end><start>Assistant\n"
-
 # Define question
 question = "can you place the mug to the head of the table"
 
