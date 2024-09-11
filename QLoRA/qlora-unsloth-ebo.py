@@ -148,24 +148,24 @@ def find_target_modules(model):
 target_modules = find_target_modules(model) 
 print("Target modules to use: ", target_modules)
 lora_r = 16 
-lora_alpha = 32
+lora_alpha = 16
 lora_dropout = 0.05
 modules_to_save = ["lm_head", "embed_tokens"]
-task_type="CAUSAL_LM"
 
 model.config.use_cache = False
+
 model = FastLanguageModel.get_peft_model(
     model, 
-    r=lora_r,# Lora attention dimension
-    lora_alpha=lora_alpha,# Scaling factor that changes how the adaptation layer's weights affect the base model's
+    r=lora_r, # Lora attention dimension
+    lora_alpha=lora_alpha, # Scaling factor that changes how the adaptation layer's weights affect the base model's
     lora_dropout=lora_dropout,
     bias="none",
     use_rslora=False,
     use_gradient_checkpointing = "unsloth",
     random_state = 3407,
     loftq_config = None,
-    target_modules=target_modules,# List of module names or regex expression of the module names to replace with LoRA
-    modules_to_save=modules_to_save # List of modules apart from LoRA layers to be set as trainable and saved in the final checkpoint
+    target_modules=target_modules # List of module names or regex expression of the module names to replace with LoRA
+#    modules_to_save=modules_to_save # List of modules apart from LoRA layers to be set as trainable and saved in the final checkpoint
 )
 
 ###################################################################################
@@ -175,8 +175,8 @@ training_arguments = TrainingArguments(
     output_dir="./checkpoints",
     num_train_epochs=3,
     max_steps=-1,
-    fp16=False,
-    bf16=False,
+    fp16=not is_bfloat16_supported(),
+    bf16=is_bfloat16_supported(),
     per_device_train_batch_size=4,
     per_device_eval_batch_size=4,
     gradient_accumulation_steps=1,
@@ -231,16 +231,61 @@ new_model_name = modelname_lowercase+"-qlora"
 trainer.model.save_pretrained(new_model_name)
 print("Trained model saved!!")
 
-# Save base model
+# Save model and tokenizer
 model.save_pretrained(new_model_name)
-print("Base model saved!!")
+print("Model saved!!")
 
-# Save tokenized model
-print("Tokenized model saved!!")
 tokenizer.save_pretrained(new_model_name)
+print("Tokenized model saved")
+
+FastLanguageModel.for_inference(model)
+print("Model prepared for inference!!")
 
 # Getting total time
 end_time = time.time()
 
 total_duration = end_time - start_time
 print(f"Execution time: {total_duration:.2f} second(s)")
+
+
+# INFERENCE
+# Define prompt template
+llama_prompt = "<start>User\n{}<end><start>Assistant\n"
+
+# Define question
+question = "can you place the mug to the head of the table"
+
+# Tokenize entry for model
+inputs = tokenizer(
+    [llama_prompt.format(question, "")],
+    return_tensors="pt"  # Retorna tensores de PyTorch
+).to("cuda")  # Mueve los tensores a la GPU si es posible
+
+start_response_time=time.time()
+
+# Generar la respuesta
+
+# without streamer
+#outputs = model.generate(
+#    **inputs, 
+#    max_new_tokens=64,  # Controla cuántos tokens nuevos se generan
+#    use_cache=True
+#)
+
+# response = tokenizer.batch_decode(outputs, skip_special_tokens=True)
+ 
+# TextStreamer
+from transformers import TextStreamer
+
+response=TextStreamer(tokenizer)
+_ = model.generate(**inputs, streamer=response, max_new_tokens=128)
+
+
+#print("Generated text:", response[0].split('<start>Assistant\n')[1].split('<end>')[0].strip())
+#print("All text:", response)
+
+end_response_time=time.time()
+
+total_response_time= end_response_time - start_response_time
+
+print(f"Total response time: {total_response_time:.2f} second(s)")
