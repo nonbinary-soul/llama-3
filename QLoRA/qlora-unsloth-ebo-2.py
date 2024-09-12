@@ -21,6 +21,12 @@ from datasets import load_dataset
 
 ###################################################################################
 
+max_seq_length = 2048
+dtype=None
+load_in_4bit = True
+
+###################################################################################
+
 start_time=time.time()
 
 def create_model_and_tokenizer(model_name): 
@@ -28,22 +34,13 @@ def create_model_and_tokenizer(model_name):
     # model creation
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name,
-        max_seq_length = 2048,
-        dtype=None,
-        load_in_4bit = True
+        max_seq_length = max_seq_length,
+        dtype=dtype,
+        load_in_4bit = load_in_4bit
     )
 
-    print("Printing model info...")
+    print("# PRINTING MODEL INFO...")
     print(model)
-
-    # tokenization set up
-    tokenizer.add_tokens(["<start>", "<pad>"])
-    tokenizer.pad_token = "<pad>"
-    tokenizer.add_special_tokens(dict(eos_token="<end>"))
-    
-    # Set embeddings matrix of the model
-    model.resize_token_embeddings(len(tokenizer))
-    model.config.eos_token_id = tokenizer.eos_token_id
 
     return model, tokenizer
 
@@ -54,15 +51,12 @@ model, tokenizer = create_model_and_tokenizer(MODEL_NAME)
 ###################################################################################
 
 # load the dataset
-llama_prompt = """<start>
-User
+llama_prompt = """You are an assistant
+<USER>
 {}
-<end>
-<start>
-Assistant
-{}
-<end>
-"""
+
+<ASSISTANT>
+{}"""
 
 EOS_TOKEN = tokenizer.eos_token
 
@@ -75,6 +69,8 @@ def formatting_prompts_func(examples):
         texts.append(text)
     return { "text" : texts, }
 
+pass
+
 ###################################################################################
 
 dataset = load_dataset('json', data_files='default-data.json', split='train')
@@ -86,8 +82,6 @@ print("Dataset keys:", example.keys())
 dataset = dataset.map(
     formatting_prompts_func,
     batched=True, # process each input individually
-    num_proc=os.cpu_count(), # use several processes in parallel to accelerate the processing
-    remove_columns=dataset.column_names
 )
 
 ###################################################################################
@@ -209,48 +203,41 @@ print("Tokenized model saved")
 FastLanguageModel.for_inference(model)
 print("Model prepared for inference!!")
 
-# Getting total time
+# Print total execution time
 end_time = time.time()
-
 total_duration = end_time - start_time
 print(f"Execution time: {total_duration:.2f} second(s)")
 
-
 # INFERENCE
-# Define question
-question = "can you place the mug to the head of the table"
+from transformers import TextStreamer
 
-# Tokenize entry for model
-inputs = tokenizer(
-    [llama_prompt.format(question, "")],
-    return_tensors="pt"  # Retorna tensores de PyTorch
-).to("cuda")  # Mueve los tensores a la GPU si es posible
+def generate_response(question):
+    prompt = llama_prompt.format(question, "")
+    inputs = tokenizer([prompt], return_tensors="pt").to("cuda")
+
+    # create an streamer to capture generated output
+    response_streamer = TextStreamer(tokenizer)
+
+    # generate response
+    _ = model.generate(**inputs, streamer=response_streamer, max_new_tokens=128)
+
+# Generate responses
+llama_prompt = """<start>You are an assistant
+<USER>
+{}
+
+<ASSISTANT>
+{}"""
 
 start_response_time=time.time()
 
-# Generar la respuesta
+question = "can you place the mug to the head of the table"
+print("Generated response: ", generate_response(question))
 
-# without streamer
-#outputs = model.generate(
-#    **inputs, 
-#    max_new_tokens=64,  # Controla cuántos tokens nuevos se generan
-#    use_cache=True
-#)
+question = "y esta can you place the mug to the head of the table"
+print("Generated response:", generate_response(question))
 
-# response = tokenizer.batch_decode(outputs, skip_special_tokens=True)
- 
-# TextStreamer
-from transformers import TextStreamer
-
-response=TextStreamer(tokenizer)
-_ = model.generate(**inputs, streamer=response, max_new_tokens=128)
-
-
-#print("Generated text:", response[0].split('<start>Assistant\n')[1].split('<end>')[0].strip())
-#print("All text:", response)
-
+# print total response time
 end_response_time=time.time()
-
 total_response_time= end_response_time - start_response_time
-
 print(f"Total response time: {total_response_time:.2f} second(s)")
