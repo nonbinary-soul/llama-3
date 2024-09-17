@@ -14,7 +14,7 @@ def load_model_and_tokenizer(model_name, max_seq_length, dtype, load_in_4bit):
     return model, tokenizer
 
 def generate_response(model, tokenizer, question):
-    llama_prompt = """<start>You are an assistant
+    llama_prompt = """You are an assistant
 <USER>
 {}
 
