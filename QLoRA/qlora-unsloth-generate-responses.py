@@ -1,5 +1,7 @@
 #!/home/lee/miniconda3/envs/unsloth_env/bin/python
 import torch
+import time 
+
 from unsloth import FastLanguageModel
 from transformers import TextStreamer
 
@@ -30,10 +32,23 @@ def generate_response(model, tokenizer, question):
     _ = model.generate(**inputs, streamer=response_streamer, max_new_tokens=128)
 
 if __name__ == "__main__":
+    start_time = time.time()
+    
     model_name = "llama-3-8b-bnb-4bit-qlora"  # Nombre del modelo guardado
     model, tokenizer = load_model_and_tokenizer(model_name)
 
     # Ejemplo de pregunta para obtener respuesta
     question = "can you place the mug to the head of the table"
+    
+    start_response_time = time.time()
+   
     print("Generated response: ")
     generate_response(model, tokenizer, question)
+    
+    end_response_time = time.time()
+    total_response_time = end_response_time - start_response_time
+    print(f"Total response time: {total_response_time:.2f} second(s)")
+
+    end_time = time.time()
+    total_time = end_time - start_time
+    print(f"Execution time: {total_time:.2f} second(s)")

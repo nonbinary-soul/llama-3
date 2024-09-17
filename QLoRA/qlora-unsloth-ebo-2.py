@@ -200,45 +200,7 @@ print("Model saved!!")
 tokenizer.save_pretrained(new_model_name)
 print("Tokenized model saved")
 
-FastLanguageModel.for_inference(model)
-print("Model prepared for inference!!")
-
 # Print total execution time
 end_time = time.time()
-total_duration = end_time - start_time
-print(f"Execution time: {total_duration:.2f} second(s)")
-
-# INFERENCE
-from transformers import TextStreamer
-
-def generate_response(question):
-    prompt = llama_prompt.format(question, "")
-    inputs = tokenizer([prompt], return_tensors="pt").to("cuda")
-
-    # create an streamer to capture generated output
-    response_streamer = TextStreamer(tokenizer)
-
-    # generate response
-    _ = model.generate(**inputs, streamer=response_streamer, max_new_tokens=128)
-
-# Generate responses
-llama_prompt = """<start>You are an assistant
-<USER>
-{}
-
-<ASSISTANT>
-{}"""
-
-start_response_time=time.time()
-
-question = "can you place the mug to the head of the table"
-print("Generated response: ", generate_response(question))
-
-print("\n")
-question = "can you place the mug to the head of the table"
-print("Generated response:", generate_response(question))
-
-# print total response time
-end_response_time=time.time()
-total_response_time= end_response_time - start_response_time
-print(f"Total response time: {total_response_time:.2f} second(s)")
+total_time = end_time - start_time
+print(f"Execution time: {total_time:.2f} second(s)")
