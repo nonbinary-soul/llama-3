@@ -5,7 +5,7 @@ import time
 from unsloth import FastLanguageModel
 from transformers import TextStreamer
 
-def load_model_and_tokenizer(model_name, model_name, max_seq_length, dtype, load_in_4bit):
+def load_model_and_tokenizer(model_name, max_seq_length, dtype, load_in_4bit):
     model, tokenizer = FastLanguageModel.from_pretrained(model_name, max_seq_length=max_seq_length, dtype=dtype, load_in_4bit=load_in_4bit)
 
     FastLanguageModel.for_inference(model)
