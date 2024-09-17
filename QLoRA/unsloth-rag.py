@@ -9,7 +9,7 @@ from langchain.vectorstores.chroma import Chroma
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 
 model_path = hf_hub_download(
-    repo_id="TheBloke/Marcoroni-7B-v3-GGUF",
+    repo_id="unsloth/Meta-Llama-3.1-8B-bnb-4bit",
     filename="marcoroni-7b-v3.Q4_K_M.gguf",
     force_download=False
 )
@@ -17,7 +17,7 @@ model_path = hf_hub_download(
 # create the LLM
 llm = LlamaCpp(
     model_path=model_path,
-    stop=["### Instruction:\n"],
+    stop=["<|end_of_text|>"],
     n_gpu_layers=-1,
     n_ctx=2048,
     max_tokens=2048,
@@ -48,10 +48,10 @@ db.add_texts(["harrison has one apple and two orange",
 template = """You are an AI assistant with the following context: 
 {context}
 
-### Instruction:
-Answer the questio: {question}
+<USER>
+Answer the question: {question}
 
-###: Assistant:
+<ASSSITANT>
 """
 
 prompt = PromptTemplate.from_template(template)
