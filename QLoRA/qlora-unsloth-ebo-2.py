@@ -234,7 +234,8 @@ start_response_time=time.time()
 question = "can you place the mug to the head of the table"
 print("Generated response: ", generate_response(question))
 
-question = "y esta can you place the mug to the head of the table"
+print("\n")
+question = "can you place the mug to the head of the table"
 print("Generated response:", generate_response(question))
 
 # print total response time
