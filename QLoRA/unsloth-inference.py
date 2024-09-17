@@ -6,7 +6,7 @@ from unsloth import FastLanguageModel
 from transformers import TextStreamer
 
 def load_model_and_tokenizer(model_name):
-    model, tokenizer = FastLanguageModel.from_pretrained(model_name)
+    model, tokenizer = FastLanguageModel.from_pretrained(model_name, max_seq_length=max_seq_length, dtype=dtype, load_in_4bit=load_in_4bit)
 
     FastLanguageModel.for_inference(model)
     
@@ -34,8 +34,12 @@ def generate_response(model, tokenizer, question):
 if __name__ == "__main__":
     start_time = time.time()
     
-    model_name = "llama-3-8b-bnb-4bit-qlora"  # Nombre del modelo guardado
-    model, tokenizer = load_model_and_tokenizer(model_name)
+    model_name="llama-3-8b-bnb-4bit-qlora"  # Nombre del modelo guardado
+    max_seq_length=max_seq_length
+    dtye=dtype
+    load_in_4bit=load_in_4bit
+    
+    model, tokenizer = load_model_and_tokenizer(model_name, max_seq_length, dtype, load_in_4bit)
 
     # Ejemplo de pregunta para obtener respuesta
     question = "can you place the mug to the head of the table"
