@@ -35,9 +35,9 @@ if __name__ == "__main__":
     start_time = time.time()
     
     model_name="llama-3-8b-bnb-4bit-qlora"  # Nombre del modelo guardado
-    max_seq_length=max_seq_length
-    dtye=dtype
-    load_in_4bit=load_in_4bit
+    max_seq_length=2048
+    dtye=None
+    load_in_4bit=True
     
     model, tokenizer = load_model_and_tokenizer(model_name, max_seq_length, dtype, load_in_4bit)
 
