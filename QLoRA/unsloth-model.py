@@ -73,7 +73,7 @@ pass
 
 ###################################################################################
 
-dataset = load_dataset('json', data_files='default-data.json', split='train')
+dataset = load_dataset('json', data_files='data-command-cfr.json', split='train')
 
 # Showing possible dataset keys to use in 'tokenize' function. In this case, it is available 'command' and 'cfr'
 example = dataset[0]
