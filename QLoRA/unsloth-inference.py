@@ -36,7 +36,7 @@ if __name__ == "__main__":
     
     model_name="llama-3-8b-bnb-4bit-qlora"  # Nombre del modelo guardado
     max_seq_length=2048
-    dtye=None
+    dtype=None
     load_in_4bit=True
     
     model, tokenizer = load_model_and_tokenizer(model_name, max_seq_length, dtype, load_in_4bit)
