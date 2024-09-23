@@ -197,6 +197,8 @@ print("Trained model saved!!")
 model.save_pretrained(new_model_name)
 print("Model saved!!")
 
+model.save_pretrained_gguf("model", tokenizer)
+
 tokenizer.save_pretrained(new_model_name)
 print("Tokenized model saved")
 
