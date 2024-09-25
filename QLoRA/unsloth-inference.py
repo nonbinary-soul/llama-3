@@ -23,7 +23,7 @@ if __name__ == "__main__":
     
     start_time = time.time()
     
-    my_prompt = "hey, how are you?"
+    my_prompt = "can you place the mug to the head of the table"
     ebo_response = generate_text_from_prompt(my_prompt)
     final_result = ebo_response["choices"][0]["text"].strip()
     print("Model response:", final_result)
