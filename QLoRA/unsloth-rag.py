@@ -1,29 +1,15 @@
 #!/home/lee/miniconda3/envs/unsloth_env/bin/python
 # this code has been copied from other source. 
 from huggingface_hub import hf_hub_download
-from langchain.llms.llamacpp import LlamaCpp
+from llama_cpp import Llama
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain.vectorstores.chroma import Chroma
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 
-model_path = hf_hub_download(
-    repo_id="unsloth/Meta-Llama-3.1-8B-bnb-4bit",
-    filename="marcoroni-7b-v3.Q4_K_M.gguf",
-    force_download=False
-)
-
-# create the LLM
-llm = LlamaCpp(
-    model_path=model_path,
-    stop=["<|end_of_text|>"],
-    n_gpu_layers=-1,
-    n_ctx=2048,
-    max_tokens=2048,
-    temperature=0.0,
-    streaming=True
-)
+model_path = "./model/unsloth.Q8_0.gguf"
+ebo_model = Llama(model_path=model_path)
 
 # create the embeddings
 model_name = "mixedbread-ai/mxbai-embed-large-v1"
