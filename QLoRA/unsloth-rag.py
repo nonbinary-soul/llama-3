@@ -1,4 +1,4 @@
-#!/home/lee/miniconda3/envs/unsloth_env/bin/python
+#!/home/lee/miniconda3/envs/unsloth_llamacpp/bin/python
 # this code has been copied from other source. 
 from huggingface_hub import hf_hub_download
 from llama_cpp import Llama
