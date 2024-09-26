@@ -32,7 +32,9 @@ if __name__ == "__main__":
     my_prompt = "can you place the mug to the head of the table"
     ebo_response = generate_text_from_prompt(my_prompt)
     final_result = extract_assistant_response(ebo_response["choices"][0]["text"])
+    print("\n")
     print("Model response:", final_result)
+    print("\n")
 
     end_time = time.time()    
     execution_time = end_time - start_time
