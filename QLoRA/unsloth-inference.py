@@ -18,13 +18,20 @@ def generate_text_from_prompt(user_prompt, max_tokens = 100, temperature = 0.3, 
 
    return model_output
 
+def extract_assistant_response(model_output):
+    # Busca el texto después de la etiqueta <ASSISTANT>
+    assistant_tag = "<ASSISTANT>"
+    if assistant_tag in model_output:
+        return model_output.split(assistant_tag)[-1].strip()
+    return model_output.strip()
+   
 if __name__ == "__main__":
     
     start_time = time.time()
     
     my_prompt = "can you place the mug to the head of the table"
     ebo_response = generate_text_from_prompt(my_prompt)
-    final_result = ebo_response["choices"][0]["text"].strip()
+    final_result = extract_assistant_response(ebo_response["choices"][0]["text"])
     print("Model response:", final_result)
 
     end_time = time.time()    
