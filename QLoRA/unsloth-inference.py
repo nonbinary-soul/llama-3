@@ -1,4 +1,4 @@
-#!/home/lee/miniconda3/envs/unsloth_env/bin/python
+#!/home/lee/miniconda3/envs/unsloth_llamacpp/bin/python
 import time 
 from llama_cpp import Llama
 
