@@ -60,7 +60,7 @@ setup_and_retrieval = RunnableParallel(
     {"context": retriever | format_docs, "question": RunnablePassthrough()}
 )
 
-chain = setup_and_retrieval | prompt | llm | output_parser
+chain = setup_and_retrieval | prompt | ebo_model | output_parser
 
 
 # prompt the LLM
