@@ -2,11 +2,11 @@
 # this code has been copied from other source. 
 from huggingface_hub import hf_hub_download
 from llama_cpp import Llama
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import PromptTemplate
-from langchain_community.embeddings import HuggingFaceBgeEmbeddings
-from langchain.vectorstores.chroma import Chroma
-from langchain_core.runnables import RunnableParallel, RunnablePassthrough
+from langchain.schema.runnable  import RunnablePassthrough
+from langchain.schema  import StrOutputParser
+from langchain.prompts import ChatPromptTemplate
+from langchain.schema.runnable import RunnablePassthrough
+from langchain.schema.runnable.utils import ConfigurableField
 
 model_path = "./model/unsloth.Q8_0.gguf"
 ebo_model = Llama(model_path=model_path)
