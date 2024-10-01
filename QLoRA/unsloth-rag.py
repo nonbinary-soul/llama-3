@@ -61,7 +61,7 @@ setup_and_retrieval = RunnableParallel(
 chain = setup_and_retrieval | prompt | ebo_model | output_parser
 
 # prompt the LLM
-print(chain.invoke({"question":"what do harrison and bears have?"}))
+print(chain.invoke("what do harrison and bears have?"))
 
 # prompt the LLM
-print(chain.invoke({"question":"what does color this fruits?"}))
+print(chain.invoke("what does color this fruits?"))
