@@ -2,7 +2,6 @@
 # this code has been copied from other source. 
 from huggingface_hub import hf_hub_download
 from langchain_community.llms import LlamaCpp
-from langchain_core.callbacks import CallbackManager, StreamingStdOutCallbackHandler
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
@@ -14,7 +13,7 @@ start_time=time.time()
 
 # load ebo model
 model_path = "./model/unsloth.Q8_0.gguf"
-ebo_model = LlamaCpp(model_path=model_path, n_gpu_layers=-1, temperature=0.7, top_p=0.9, stop=["<|end_of_text|>"], streaming=True)
+ebo_model = LlamaCpp(model_path=model_path, n_gpu_layers=-1, temperature=0.7, top_p=0.9, stop=["<|end_of_text|>"])
 
 # Ensures the model is closed properly before Python shuts down
 # to avoid resource cleanup errors with llama_cpp.
