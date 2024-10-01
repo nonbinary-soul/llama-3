@@ -9,15 +9,6 @@ from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 
-# create the prompt
-template = """Answer the question based only on the following context: 
-{context}
-
----
-Answer the question based on the above context: {question}
-"""
-prompt = PromptTemplate.from_template(template)
-
 # load ebo model
 model_path = "./model/unsloth.Q8_0.gguf"
 ebo_model = LlamaCpp(model_path=model_path, n_gpu_layers=-1, temperature=0.7, top_p=0.9, stop=["<ASSISTANT>"])
@@ -40,6 +31,16 @@ retriever = db.as_retriever()
 
 db.add_texts(["harrison has one apple and two orange",
               "bears has two apples and one banana"])
+
+
+# create the prompt
+template = """Answer the question based only on the following context: 
+{context}
+
+---
+Answer the question based on the above context: {question}
+"""
+prompt = PromptTemplate.from_template(template)
 
 # create the chain
 output_parser = StrOutputParser()
