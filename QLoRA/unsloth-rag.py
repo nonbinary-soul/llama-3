@@ -58,7 +58,7 @@ setup_and_retrieval = RunnableParallel(
     {"context": retriever | format_docs, "question": RunnablePassthrough()}
 )
 
-chain = setup_and_retrieval | (lambda x: str(prompt.format(**x))) | ebo_model | output_parser
+chain = setup_and_retrieval | prompt | ebo_model | output_parser
 
 # prompt the LLM
 print(chain.invoke("what do harrison and bears have?"))
