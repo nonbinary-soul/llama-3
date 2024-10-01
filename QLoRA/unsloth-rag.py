@@ -31,13 +31,11 @@ db.add_texts(["harrison has one apple and two orange",
               "bears has two apples and one banana"])
 
 # create the prompt
-template = """You are an AI assistant with the following context: 
+template = """Answer the question based only on the following context: 
 {context}
 
-<USER>
-Answer the question: {question}
-
-<ASSSITANT>
+---
+Answer the question based on the above context: {question}
 """
 
 prompt = PromptTemplate.from_template(template)
