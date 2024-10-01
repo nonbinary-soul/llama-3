@@ -20,7 +20,7 @@ prompt = PromptTemplate.from_template(template)
 
 # load ebo model
 model_path = "./model/unsloth.Q8_0.gguf"
-ebo_model = LlamaCpp(model_path=model_path, n_gpu_layers=-1)
+ebo_model = LlamaCpp(model_path=model_path, n_gpu_layers=-1, temperature=0.7, top_p=0.9, stop=["<|end_of_text|>"])
 
 # create the embeddings
 model_name = "mixedbread-ai/mxbai-embed-large-v1"
