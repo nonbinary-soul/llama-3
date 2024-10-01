@@ -8,7 +8,9 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
-import atexit
+import atexit, time 
+
+start_time=time.time()
 
 # load ebo model
 model_path = "./model/unsloth.Q8_0.gguf"
@@ -70,8 +72,20 @@ setup_and_retrieval = RunnableParallel(
 
 chain = setup_and_retrieval | prompt | ebo_model | output_parser
 
+start_response_time=time.time()
 # prompt the LLM
 print(chain.invoke("what does harrison have?"))
+end_response_time=time.time()
+response_time=end_response_time-start_response_time
+print("Response time: ", response_time)
 
+start_response_time=time.time()
 # prompt the LLM
 print(chain.invoke("what does bears have?"))
+end_response_time=time.time()
+response_time=end_response_time-start_response_time
+print("Response time: ", response_time)
+
+end_time=time.time()
+total_time=end_time-start_time
+print("Execution time: ", total_time)
