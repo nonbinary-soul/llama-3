@@ -8,6 +8,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain.vectorstores.chroma import Chroma
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
+from langchain_core.prompt_values import StringPromptValue
 
 # create the prompt
 template = """Answer the question based only on the following context: 
