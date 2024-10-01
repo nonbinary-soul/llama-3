@@ -64,4 +64,4 @@ chain = setup_and_retrieval | prompt | ebo_model | output_parser
 print(chain.invoke("what does harrison have?"))
 
 # prompt the LLM
-print(chain.invoke("what does bears have?"))
+#print(chain.invoke("what does bears have?"))
