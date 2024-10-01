@@ -18,11 +18,9 @@ Answer the question based on the above context: {question}
 """
 prompt = PromptTemplate.from_template(template)
 
-# Callbacks support token-wise streaming
-callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
-
+# load ebo model
 model_path = "./model/unsloth.Q8_0.gguf"
-ebo_model = LlamaCpp(model_path=model_path, n_gpu_layers=-1, n_batch=512, callback_manager=callback_manager, verbose=True)
+ebo_model = LlamaCpp(model_path=model_path, n_gpu_layers=-1)
 
 # create the embeddings
 model_name = "mixedbread-ai/mxbai-embed-large-v1"
