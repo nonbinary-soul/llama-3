@@ -73,7 +73,7 @@ chain = setup_and_retrieval | prompt | ebo_model | output_parser
 
 start_response_time=time.time()
 # prompt the LLM
-print(chain.invoke("what does harrison have?"))
+print(chain.invoke("what does harrison and bears have?"))
 end_response_time=time.time()
 response_time=end_response_time-start_response_time
 print("Response time: ", response_time)
