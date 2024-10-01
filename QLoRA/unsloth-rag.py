@@ -8,10 +8,15 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
+import atexit
 
 # load ebo model
 model_path = "./model/unsloth.Q8_0.gguf"
 ebo_model = LlamaCpp(model_path=model_path, n_gpu_layers=-1, temperature=0.7, top_p=0.9, stop=["<|end_of_text|>"], streaming=True)
+
+@atexit.register
+def free_model():
+    ebo_model.client.close()
 
 # create the embeddings
 model_name = "mixedbread-ai/mxbai-embed-large-v1"
