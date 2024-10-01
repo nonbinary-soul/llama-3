@@ -9,6 +9,18 @@ from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain.vectorstores.chroma import Chroma
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 
+# create the prompt
+template = """Answer the question based only on the following context: 
+{context}
+
+---
+Answer the question based on the above context: {question}
+"""
+prompt = PromptTemplate.from_template(template)
+
+# Callbacks support token-wise streaming
+callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
+
 model_path = "./model/unsloth.Q8_0.gguf"
 ebo_model = LlamaCpp(model_path=model_path, n_gpu_layers=-1, n_batch=512, callback_manager=callback_manager, verbose=True)
 
@@ -30,19 +42,6 @@ retriever = db.as_retriever()
 
 db.add_texts(["harrison has one apple and two orange",
               "bears has two apples and one banana"])
-
-# create the prompt
-template = """Answer the question based only on the following context: 
-{context}
-
----
-Answer the question based on the above context: {question}
-"""
-
-prompt = PromptTemplate.from_template(template)
-
-# Callbacks support token-wise streaming
-callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
 # create the chain
 output_parser = StrOutputParser()
