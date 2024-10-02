@@ -79,7 +79,7 @@ def request_model(question):
         print("Question asked before:")
         for doc in results:
             print(f"{doc.page_content}")
-        return results[0].page_content
+        return 
 
     # If not, request model a response
     print("No results, requesting model...")
