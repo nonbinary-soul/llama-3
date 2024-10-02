@@ -2,7 +2,17 @@
 import time 
 from llama_cpp import Llama
 
-model_path = "./model/unsloth.Q4_K_M.gguf"
+# Find .gguf model
+model_path = "./model"
+model_file = next((f for f in os.listdir(model_path) if f.endswith(".gguf")), None)
+
+if model_file:
+    model_path = os.path.join(model_path, model_file)
+    print(f"Modelo encontrado: {model_path}")
+else:
+    raise FileNotFoundError(f"No model with extension .gguf was found in the {model_path} directory")
+
+# load ebo model
 ebo_model = Llama(model_path=model_path)
 
 def generate_text_from_prompt(user_prompt, max_tokens = 100, temperature = 0.3, top_p = 0.1, echo = True, stop = ["<|end_of_text|>"]):
