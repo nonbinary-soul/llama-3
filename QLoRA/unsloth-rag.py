@@ -40,7 +40,6 @@ retriever = db.as_retriever()
 db.add_texts(["harrison has one apple and two orange",
               "bears has two apples and one banana"])
 
-
 # create the prompt
 template = """Answer the question based only on the following context: 
 {context}
@@ -64,30 +63,49 @@ def format_docs(docs):
 
     return text
 
-
 setup_and_retrieval = RunnableParallel(
     {"context": retriever | format_docs, "question": RunnablePassthrough()}
 )
 
 chain = setup_and_retrieval | prompt | ebo_model | output_parser
 
+def request_model(question):
+    # Check if question is already in database
+    results = retriever.get_relevant_documents(question)
+    
+    # If so, show them
+    if results:
+        print("Question asked before:")
+        for doc in results:
+            print(f"- {doc.page_content}")
+        return results[0].page_content
+    
+    # If not, request model a response
+    print("No hay resultados previos, consultando al modelo...")
+    response = chain.invoke(question)
+    
+    # Add question and response to the database
+    db.add_texts([f"Pregunta: {question} | Respuesta: {response}"])
+    
+    return response
+
 start_response_time=time.time()
 # prompt the LLM
-print(chain.invoke("what does harrison and bears have?"))
+print(request_model("what does harrison and bears have?"))
 end_response_time=time.time()
 response_time=end_response_time-start_response_time
 print("Response time: ", response_time)
 
 start_response_time=time.time()
 # prompt the LLM
-print(chain.invoke("what does bears have?"))
+print(request_model("what does bears have?"))
 end_response_time=time.time()
 response_time=end_response_time-start_response_time
 print("Response time: ", response_time)
 
 start_response_time=time.time()
 # prompt the LLM
-print(chain.invoke("can you place the mug to the head of the table"))
+print(request_model("can you place the mug to the head of the table"))
 end_response_time=time.time()
 response_time=end_response_time-start_response_time
 print("Response time: ", response_time)
