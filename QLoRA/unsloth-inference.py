@@ -2,7 +2,7 @@
 import time 
 from llama_cpp import Llama
 
-model_path = "./model/unsloth.Q8_0.gguf"
+model_path = "./model/unsloth.Q4_K_M.gguf"
 ebo_model = Llama(model_path=model_path)
 
 def generate_text_from_prompt(user_prompt, max_tokens = 100, temperature = 0.3, top_p = 0.1, echo = True, stop = ["<|end_of_text|>"]):
