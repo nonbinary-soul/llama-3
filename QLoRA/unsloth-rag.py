@@ -70,20 +70,8 @@ setup_and_retrieval = RunnableParallel(
 chain = setup_and_retrieval | prompt | ebo_model | output_parser
 
 def request_model(question):
-    # Check if question is already in database
-    results = retriever.invoke(question)
-    
-    # If so, show them
-    if results:
-        print("Question asked before:")
-        for doc in results:
-            print(f"- {doc.page_content}")
-        return results[0].page_content
-    
-    # If not, request model a response
-    print("No results, requesting model...")
-    response = chain.invoke(question)
-    
+    # request question
+    response = chain.invoke(question)    
     # Add question and response to the database
     db.add_texts([f"Pregunta: {question} | Respuesta: {response}"])
     
