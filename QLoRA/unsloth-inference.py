@@ -1,5 +1,5 @@
 #!/home/lee/miniconda3/envs/unsloth_llamacpp/bin/python
-import time 
+import time, os
 from llama_cpp import Llama
 
 # Find .gguf model
