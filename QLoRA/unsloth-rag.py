@@ -71,7 +71,7 @@ chain = setup_and_retrieval | prompt | ebo_model | output_parser
 
 def request_model(question):
     # Check if question is already in database
-    results = retriever.get_relevant_documents(question)
+    results = retriever.invoke(question)
     
     # If so, show them
     if results:
