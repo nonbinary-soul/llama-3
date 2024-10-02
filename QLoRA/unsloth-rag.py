@@ -77,9 +77,7 @@ def request_model(question):
     # If so, show them
     if results:
         print("Question asked before:")
-        for doc in results:
-            print(f"{doc.page_content}")
-        return 
+        return results
 
     # If not, request model a response
     print("No results, requesting model...")
