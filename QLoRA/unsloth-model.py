@@ -197,7 +197,7 @@ print("Trained model saved!!")
 model.save_pretrained(new_model_name)
 print("Model saved!!")
 
-model.save_pretrained_gguf("model", tokenizer)
+model.save_pretrained_gguf("model", tokenizer, quantization_method = "q4_k_m")
 
 tokenizer.save_pretrained(new_model_name)
 print("Tokenized model saved")
