@@ -75,6 +75,7 @@ def request_model(question):
     results = retriever.invoke(question)
 
     # If so, show them
+    answer=""
     if results:
         print("Question asked before:")
         for doc in results:
