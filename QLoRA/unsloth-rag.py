@@ -13,7 +13,7 @@ start_time=time.time()
 
 # load ebo model
 model_path = "./model/unsloth.Q8_0.gguf"
-ebo_model = LlamaCpp(model_path=model_path, n_gpu_layers=-1, temperature=0.5, top_p=0.5, stop=["<|end_of_text|>"])
+ebo_model = LlamaCpp(model_path=model_path, n_gpu_layers=-1, temperature=0.5, top_p=0.5, stop=["<|end_of_text|>"], streaming=True)
 
 # Ensures the model is closed properly before Python shuts down
 # to avoid resource cleanup errors with llama_cpp.
