@@ -89,6 +89,7 @@ def request_model(question):
     
     return response
 
+"""
 start_response_time=time.time()
 # prompt the LLM
 print(request_model("what does harrison and bears have?"))
@@ -102,6 +103,7 @@ print(request_model("what does bears have?"))
 end_response_time=time.time()
 response_time=end_response_time-start_response_time
 print("Response time: ", response_time)
+"""
 
 start_response_time=time.time()
 # prompt the LLM
