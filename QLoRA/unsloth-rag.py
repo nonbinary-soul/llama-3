@@ -79,7 +79,7 @@ def request_model(question):
     if results:
         print("Question asked before:")
         for doc in results:
-            answer += f"- {doc.page_content}\n"
+            answer += f"{doc.page_content}\n"
         return answer.strip()
 
     # If not, request model a response
