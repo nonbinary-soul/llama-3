@@ -23,7 +23,7 @@ def free_model():
 
 # create the embeddings
 model_name = "mixedbread-ai/mxbai-embed-large-v1"
-model_kwargs = {"device": "cpu"}
+model_kwargs = {"device": "cuda"}
 encode_kwargs = {"normalize_embeddings": True}
 
 embeddings_model = HuggingFaceBgeEmbeddings(
