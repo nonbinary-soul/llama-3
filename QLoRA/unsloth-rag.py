@@ -7,12 +7,22 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
-import atexit, time 
+import atexit, time, os
 
 start_time=time.time()
 
 # load ebo model
-model_path = "./model/unsloth.Q4_K_M.gguf"
+
+# Find .gguf model
+model_path = "./model"
+model_file = next((f for f in os.listdir(model_path) if f.endswith(".gguf")), None)
+
+if model_file:
+    model_path = os.path.join(model_path, model_file)
+    print(f"Modelo encontrado: {model_path}")
+else:
+    raise FileNotFoundError(f"No model with extension .gguf was found in the {model_path} directory")
+    
 ebo_model = LlamaCpp(model_path=model_path, n_gpu_layers=-1, temperature=0.5, top_p=0.5, stop=["<|end_of_text|>"])
 
 # Ensures the model is closed properly before Python shuts down
@@ -81,7 +91,7 @@ def request_model(question):
         return results[0].page_content
     
     # If not, request model a response
-    print("No hay resultados previos, consultando al modelo...")
+    print("No results, requesting model...")
     response = chain.invoke(question)
     
     # Add question and response to the database
