@@ -1,1 +1,718 @@
-
+[
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "María",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "María",
+      "hobbies": ["cooking", "taking care of the garden"],
+      "age": 88,
+      "goal": "prepare orange juice",
+      "number of steps": 5,
+      "scenes": [
+        {"id": 0, "name": "kitchen", "props": "your sister Ana"}
+      ]
+    },
+    "output": "¡Hola María! Soy Ebo. Vamos a hacer jugo de naranja. Aquí está la lista de cosas que necesitamos, pero hay algo que no debemos comprar. ¿Qué es?\n\n1. Naranjas\n2. Azúcar\n3. Hielo\n4. Batidora\n5. Televisión"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Juan",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Juan",
+      "hobbies": ["reading", "traveling"],
+      "age": 75,
+      "goal": "make a salad",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 1, "name": "garden", "props": "your friend Luis"}
+      ]
+    },
+    "output": "¡Hola Juan! Soy Ebo. Vamos a hacer una ensalada. Aquí tienes los ingredientes, pero uno no debe estar en la lista. ¿Qué no debemos comprar?\n\n1. Lechuga\n2. Tomate\n3. Colador\n4. Pepino\n5. Aceite"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Ana",
+      "cognitive impairment": "moderate",
+      "scene description level": "use only 25 words",
+      "player name": "Ana",
+      "hobbies": ["painting", "walking"],
+      "age": 82,
+      "goal": "bake a cake",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 2, "name": "living room", "props": "your daughter Maria"}
+      ]
+    },
+    "output": "¡Hola Ana! Soy Ebo. Vamos a hacer un pastel delicioso. Aquí tienes los ingredientes, pero hay uno que no corresponde. ¿Qué ingrediente no debemos comprar?\n\n1. Harina\n2. Rallador\n3. Azúcar\n4. Huevos\n5. Leche"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Carlos",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Carlos",
+      "hobbies": ["gardening", "fishing"],
+      "age": 70,
+      "goal": "prepare a smoothie",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 3, "name": "kitchen", "props": "your son Pablo"}
+      ]
+    },
+    "output": "¡Hola Carlos! Soy Ebo. Vamos a preparar un batido. Aquí están los ingredientes, pero uno no corresponde. ¿Cuál no sirve para el batido?\n\n1. Plátano\n2. Yogur\n3. Miel\n4. Pescado\n5. Licuadora"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Laura",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Laura",
+      "hobbies": ["knitting", "singing"],
+      "age": 85,
+      "goal": "make a sandwich",
+      "number of steps": 5,
+      "scenes": [
+        {"id": 4, "name": "kitchen", "props": "your friend Julia"}
+      ]
+    },
+    "output": "¡Hola Laura! Soy Ebo. Hoy vamos a hacer un sándwich. Aquí tienes los ingredientes que necesitamos, pero hay algo que no debemos comprar. ¿Qué no sirve para el sándwich?\n\n1. Pan\n2. Jamón\n3. Zapato\n4. Queso\n5. Tomate"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Pedro",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Pedro",
+      "hobbies": ["gardening", "fishing"],
+      "age": 70,
+      "goal": "prepare a fruit salad",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 5, "name": "kitchen", "props": "your neighbor Laura"}
+      ]
+    },
+    "output": "¡Hola Pedro! Soy Ebo. Vamos a hacer una ensalada de frutas. Aquí tienes los ingredientes que necesitamos, pero hay algo que no debemos comprar. ¿Qué no sirve para la ensalada de frutas?\n\n1. Manzanas\n2. Plátanos\n3. Yogur\n4. Lechuga\n5. Naranjas"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Elena",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Elena",
+      "hobbies": ["reading", "music"],
+      "age": 65,
+      "goal": "make a sandwich",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 6, "name": "living room", "props": "your son Miguel"}
+      ]
+    },
+    "output": "¡Hola Elena! Soy Ebo. Vamos a preparar un sándwich. Aquí tienes los ingredientes. ¿Qué no deberíamos comprar?\n\n1. Pan\n2. Jamón\n3. Lechuga\n4. Pepino\n5. Zapato"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Luis",
+      "cognitive impairment": "moderate",
+      "scene description level": "use only 25 words",
+      "player name": "Luis",
+      "hobbies": ["cooking", "walking"],
+      "age": 80,
+      "goal": "prepare a smoothie",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 7, "name": "kitchen", "props": "your daughter Sofia"}
+      ]
+    },
+    "output": "¡Hola Luis! Soy Ebo. Vamos a preparar un batido. Aquí tienes los ingredientes, pero uno no sirve para el batido. ¿Qué no deberíamos comprar?\n\n1. Fresas\n2. Plátano\n3. Miel\n4. Leche\n5. Pescado"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Carmen",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Carmen",
+      "hobbies": ["gardening", "sewing"],
+      "age": 77,
+      "goal": "make a fruit juice",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 8, "name": "kitchen", "props": "your niece Laura"}
+      ]
+    },
+    "output": "¡Hola Carmen! Soy Ebo. Vamos a hacer jugo de frutas. Aquí tienes los ingredientes que necesitamos, pero hay algo que no sirve. ¿Qué no debemos comprar?\n\n1. Manzanas\n2. Naranjas\n3. Jugo de limón\n4. Batidora\n5. Zapato"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Antonio",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Antonio",
+      "hobbies": ["fishing", "photography"],
+      "age": 60,
+      "goal": "bake cookies",
+      "number of steps": 5,
+      "scenes": [
+        {"id": 9, "name": "kitchen", "props": "your wife Maria"}
+      ]
+    },
+    "output": "¡Hola Antonio! Soy Ebo. Vamos a hacer galletas. Aquí tienes lo que necesitamos, pero algo no corresponde. ¿Qué no debemos comprar?\n\n1. Harina\n2. Azúcar\n3. Chocolate\n4. Huevos\n5. Juguetes"
+  }, 
+  
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Sofia",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Sofia",
+      "hobbies": ["baking", "painting"],
+      "age": 70,
+      "goal": "bake a pie",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 10, "name": "kitchen", "props": "your daughter Isabella"}
+      ]
+    },
+    "output": "¡Hola Sofia! Soy Ebo. Vamos a hacer un pastel. Aquí tienes la lista de cosas que necesitamos, pero hay algo que no sirve. ¿Qué no necesitamos?\n\n1. Harina\n2. Azúcar\n3. Huevos\n4. Batidora\n5. Televisión"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Roberto",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Roberto",
+      "hobbies": ["gardening", "cooking"],
+      "age": 68,
+      "goal": "prepare soup",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 11, "name": "kitchen", "props": "your wife Patricia"}
+      ]
+    },
+    "output": "¡Hola Roberto! Soy Ebo. Vamos a preparar sopa. Aquí están los ingredientes. ¿Qué no debemos comprar?\n\n1. Zanahorias\n2. Apio\n3. Patatas\n4. Tomate\n5. Zapato"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Elena",
+      "cognitive impairment": "moderate",
+      "scene description level": "use only 25 words",
+      "player name": "Elena",
+      "hobbies": ["traveling", "painting"],
+      "age": 74,
+      "goal": "make a fruit salad",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 12, "name": "kitchen", "props": "your brother Luis"}
+      ]
+    },
+    "output": "¡Hola Elena! Soy Ebo. Vamos a preparar una ensalada de frutas. Aquí tienes los ingredientes, pero uno no corresponde. ¿Qué ingrediente no sirve para la ensalada?\n\n1. Manzanas\n2. Plátano\n3. Fresas\n4. Yogur\n5. Lechuga"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Marco",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Marco",
+      "hobbies": ["reading", "cooking"],
+      "age": 64,
+      "goal": "prepare coffee",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 13, "name": "kitchen", "props": "your daughter Maria"}
+      ]
+    },
+    "output": "¡Hola Marco! Soy Ebo. Vamos a preparar café. Aquí están los ingredientes. ¿Qué no debemos comprar?\n\n1. Café\n2. Azúcar\n3. Leche\n4. Taza\n5. Pescado"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Sandra",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Sandra",
+      "hobbies": ["gardening", "crocheting"],
+      "age": 78,
+      "goal": "prepare a sandwich",
+      "number of steps": 5,
+      "scenes": [
+        {"id": 14, "name": "kitchen", "props": "your sister Julia"}
+      ]
+    },
+    "output": "¡Hola Sandra! Soy Ebo. Vamos a hacer un sándwich. Aquí tienes la lista de ingredientes, pero hay algo que no debemos comprar. ¿Qué no necesitamos?\n\n1. Pan\n2. Jamón\n3. Queso\n4. Tomate\n5. Zapato"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Josefina",
+      "cognitive impairment": "moderate",
+      "scene description level": "use only 25 words",
+      "player name": "Josefina",
+      "hobbies": ["knitting", "sewing"],
+      "age": 80,
+      "goal": "bake a cake",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 15, "name": "kitchen", "props": "your daughter Maria"}
+      ]
+    },
+    "output": "¡Hola Josefina! Soy Ebo. Vamos a hacer un pastel. Aquí tienes los ingredientes. ¿Cuál no pertenece?\n\n1. Harina\n2. Azúcar\n3. Huevos\n4. Leche\n5. Sal"
+  }, 
+  
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Alberto",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Alberto",
+      "hobbies": ["watching TV", "reading"],
+      "age": 74,
+      "goal": "make a smoothie",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 16, "name": "kitchen", "props": "your daughter Laura"}
+      ]
+    },
+    "output": "¡Hola Alberto! Soy Ebo. Vamos a hacer un batido. Aquí tienes lo que necesitamos, pero hay algo que no debemos comprar. ¿Qué no necesitamos?\n\n1. Plátano\n2. Yogur\n3. Leche\n4. Miel\n5. Zapato"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Carla",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Carla",
+      "hobbies": ["traveling", "dancing"],
+      "age": 65,
+      "goal": "prepare a sandwich",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 17, "name": "kitchen", "props": "your friend Isabel"}
+      ]
+    },
+    "output": "¡Hola Carla! Soy Ebo. Vamos a hacer un sándwich. Aquí están los ingredientes, pero uno no corresponde. ¿Qué no debemos comprar?\n\n1. Pan\n2. Tomate\n3. Lechuga\n4. Mayonesa\n5. Pescado"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Fernando",
+      "cognitive impairment": "moderate",
+      "scene description level": "use only 25 words",
+      "player name": "Fernando",
+      "hobbies": ["photography", "swimming"],
+      "age": 70,
+      "goal": "bake cookies",
+      "number of steps": 5,
+      "scenes": [
+        {"id": 18, "name": "kitchen", "props": "your cousin Marta"}
+      ]
+    },
+    "output": "¡Hola Fernando! Soy Ebo. Vamos a hacer galletas. Aquí tienes los ingredientes. ¿Qué no corresponde para las galletas?\n\n1. Harina\n2. Azúcar\n3. Mantequilla\n4. Huevos\n5. Tomate"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Julia",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Julia",
+      "hobbies": ["knitting", "reading books"],
+      "age": 76,
+      "goal": "make a fruit salad",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 19, "name": "kitchen", "props": "your niece Beatriz"}
+      ]
+    },
+    "output": "¡Hola Julia! Soy Ebo. Vamos a hacer una ensalada de frutas. Aquí tienes lo que necesitamos, pero hay algo que no debemos comprar. ¿Qué no necesitamos?\n\n1. Manzanas\n2. Plátano\n3. Fresas\n4. Yogur\n5. Zapato"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Esteban",
+      "cognitive impairment": "moderate",
+      "scene description level": "use only 25 words",
+      "player name": "Esteban",
+      "hobbies": ["walking", "cooking"],
+      "age": 68,
+      "goal": "prepare a salad",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 20, "name": "garden", "props": "your wife Carmen"}
+      ]
+    },
+    "output": "¡Hola Esteban! Soy Ebo. Vamos a preparar una ensalada. Aquí están los ingredientes. ¿Qué no corresponde?\n\n1. Lechuga\n2. Tomate\n3. Aceite\n4. Zanahorias\n5. Miel"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Rosa",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Rosa",
+      "hobbies": ["traveling", "photography"],
+      "age": 72,
+      "goal": "bake a cake",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 21, "name": "kitchen", "props": "your son Javier"}
+      ]
+    },
+    "output": "¡Hola Rosa! Soy Ebo. Vamos a hacer un pastel. Aquí están los ingredientes. ¿Qué no debemos comprar?\n\n1. Harina\n2. Azúcar\n3. Leche\n4. Huevos\n5. Pescado"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Alejandro",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Alejandro",
+      "hobbies": ["reading", "gardening"],
+      "age": 80,
+      "goal": "make a sandwich",
+      "number of steps": 5,
+      "scenes": [
+        {"id": 22, "name": "kitchen", "props": "your friend Marta"}
+      ]
+    },
+    "output": "¡Hola Alejandro! Soy Ebo. Vamos a hacer un sándwich. Aquí tienes la lista de ingredientes, pero hay algo que no debemos comprar. ¿Qué no necesitamos?\n\n1. Pan\n2. Jamón\n3. Lechuga\n4. Queso\n5. Zapato"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Inés",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Inés",
+      "hobbies": ["cooking", "yoga"],
+      "age": 66,
+      "goal": "prepare a fruit smoothie",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 23, "name": "kitchen", "props": "your daughter Sofia"}
+      ]
+    },
+    "output": "¡Hola Inés! Soy Ebo. Vamos a preparar un batido. Aquí están los ingredientes, pero uno no corresponde. ¿Qué no debemos comprar?\n\n1. Plátano\n2. Yogur\n3. Miel\n4. Pescado\n5. Licuadora"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Laura",
+      "cognitive impairment": "moderate",
+      "scene description level": "use only 25 words",
+      "player name": "Laura",
+      "hobbies": ["painting", "walking"],
+      "age": 75,
+      "goal": "bake cookies",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 24, "name": "kitchen", "props": "your friend Marta"}
+      ]
+    },
+    "output": "¡Hola Laura! Soy Ebo. Vamos a hacer galletas. Aquí tienes los ingredientes. ¿Cuál no pertenece?\n\n1. Harina\n2. Azúcar\n3. Chocolate\n4. Huevos\n5. Tomate"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Oscar",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Oscar",
+      "hobbies": ["fishing", "reading"],
+      "age": 77,
+      "goal": "prepare a fruit salad",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 25, "name": "kitchen", "props": "your neighbor Marta"}
+      ]
+    },
+    "output": "¡Hola Oscar! Soy Ebo. Vamos a hacer una ensalada de frutas. Aquí están los ingredientes, pero uno no corresponde. ¿Qué no necesitamos?\n\n1. Manzanas\n2. Plátano\n3. Yogur\n4. Lechuga\n5. Zapato"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Santiago",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Santiago",
+      "hobbies": ["photography", "cooking"],
+      "age": 71,
+      "goal": "prepare soup",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 26, "name": "kitchen", "props": "your son Diego"}
+      ]
+    },
+    "output": "¡Hola Santiago! Soy Ebo. Vamos a preparar sopa. Aquí están los ingredientes, pero uno no corresponde. ¿Qué no debemos comprar?\n\n1. Zanahorias\n2. Apio\n3. Cebolla\n4. Pescado\n5. Tomate"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Alicia",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Alicia",
+      "hobbies": ["gardening", "cooking"],
+      "age": 78,
+      "goal": "prepare juice",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 27, "name": "kitchen", "props": "your friend Rosa"}
+      ]
+    },
+    "output": "¡Hola Alicia! Soy Ebo. Vamos a hacer jugo de frutas. Aquí tienes los ingredientes, pero hay algo que no debemos comprar. ¿Qué no necesitamos?\n\n1. Naranjas\n2. Manzanas\n3. Jugo de limón\n4. Batidora\n5. Zapato"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Antonio",
+      "cognitive impairment": "moderate",
+      "scene description level": "use only 25 words",
+      "player name": "Antonio",
+      "hobbies": ["fishing", "cooking"],
+      "age": 69,
+      "goal": "make a sandwich",
+      "number of steps": 5,
+      "scenes": [
+        {"id": 28, "name": "kitchen", "props": "your daughter Valeria"}
+      ]
+    },
+    "output": "¡Hola Antonio! Soy Ebo. Vamos a hacer un sándwich. Aquí tienes los ingredientes, pero hay algo que no corresponde. ¿Qué no debemos comprar?\n\n1. Pan\n2. Jamón\n3. Lechuga\n4. Queso\n5. Tomate"
+  }, 
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Raúl",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Raúl",
+      "hobbies": ["cooking", "gardening"],
+      "age": 73,
+      "goal": "make a fruit salad",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 29, "name": "kitchen", "props": "your friend Pedro"}
+      ]
+    },
+    "output": "¡Hola Raúl! Soy Ebo. Vamos a hacer una ensalada de frutas. Aquí están los ingredientes, pero uno no corresponde. ¿Qué no debemos comprar?\n\n1. Manzanas\n2. Plátano\n3. Yogur\n4. Lechuga\n5. Naranjas"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Isabel",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Isabel",
+      "hobbies": ["painting", "reading"],
+      "age": 66,
+      "goal": "bake a cake",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 30, "name": "kitchen", "props": "your daughter Anna"}
+      ]
+    },
+    "output": "¡Hola Isabel! Soy Ebo. Vamos a hacer un pastel. Aquí están los ingredientes. ¿Qué no debemos comprar?\n\n1. Harina\n2. Azúcar\n3. Leche\n4. Huevos\n5. Tomate"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Lucía",
+      "cognitive impairment": "moderate",
+      "scene description level": "use only 25 words",
+      "player name": "Lucía",
+      "hobbies": ["knitting", "baking"],
+      "age": 75,
+      "goal": "make a sandwich",
+      "number of steps": 5,
+      "scenes": [
+        {"id": 31, "name": "kitchen", "props": "your son Marcos"}
+      ]
+    },
+    "output": "¡Hola Lucía! Soy Ebo. Vamos a hacer un sándwich. Aquí tienes los ingredientes. ¿Qué no corresponde?\n\n1. Pan\n2. Jamón\n3. Lechuga\n4. Queso\n5. Frutas"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Víctor",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Víctor",
+      "hobbies": ["walking", "fishing"],
+      "age": 78,
+      "goal": "prepare coffee",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 32, "name": "kitchen", "props": "your wife Teresa"}
+      ]
+    },
+    "output": "¡Hola Víctor! Soy Ebo. Vamos a preparar café. Aquí están los ingredientes, pero hay algo que no debemos comprar. ¿Qué no necesitamos?\n\n1. Café\n2. Azúcar\n3. Leche\n4. Taza\n5. Pescado"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Beatriz",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Beatriz",
+      "hobbies": ["cooking", "yoga"],
+      "age": 65,
+      "goal": "make a smoothie",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 33, "name": "kitchen", "props": "your daughter Maria"}
+      ]
+    },
+    "output": "¡Hola Beatriz! Soy Ebo. Vamos a hacer un batido. Aquí tienes los ingredientes. ¿Qué no debemos comprar?\n\n1. Plátano\n2. Yogur\n3. Leche\n4. Miel\n5. Zapato"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Carlos",
+      "cognitive impairment": "moderate",
+      "scene description level": "use only 25 words",
+      "player name": "Carlos",
+      "hobbies": ["photography", "traveling"],
+      "age": 80,
+      "goal": "prepare a salad",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 34, "name": "kitchen", "props": "your friend Alejandro"}
+      ]
+    },
+    "output": "¡Hola Carlos! Soy Ebo. Vamos a preparar una ensalada. Aquí están los ingredientes. ¿Qué no corresponde?\n\n1. Lechuga\n2. Tomate\n3. Zanahorias\n4. Pepino\n5. Mantequilla"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Sandra",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Sandra",
+      "hobbies": ["crocheting", "baking"],
+      "age": 79,
+      "goal": "bake cookies",
+      "number of steps": 5,
+      "scenes": [
+        {"id": 35, "name": "kitchen", "props": "your cousin Pilar"}
+      ]
+    },
+    "output": "¡Hola Sandra! Soy Ebo. Vamos a hacer galletas. Aquí tienes los ingredientes, pero hay algo que no debemos comprar. ¿Qué no necesitamos?\n\n1. Harina\n2. Azúcar\n3. Huevos\n4. Chocolate\n5. Zapato"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Pablo",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Pablo",
+      "hobbies": ["gardening", "painting"],
+      "age": 68,
+      "goal": "prepare a fruit salad",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 36, "name": "kitchen", "props": "your daughter Laura"}
+      ]
+    },
+    "output": "¡Hola Pablo! Soy Ebo. Vamos a hacer una ensalada de frutas. Aquí están los ingredientes. ¿Qué no debemos comprar?\n\n1. Manzanas\n2. Plátano\n3. Uvas\n4. Yogur\n5. Zapato"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Marta",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Marta",
+      "hobbies": ["painting", "crocheting"],
+      "age": 74,
+      "goal": "make a sandwich",
+      "number of steps": 5,
+      "scenes": [
+        {"id": 37, "name": "kitchen", "props": "your daughter Ana"}
+      ]
+    },
+    "output": "¡Hola Marta! Soy Ebo. Vamos a hacer un sándwich. Aquí tienes los ingredientes. ¿Qué no necesitamos?\n\n1. Pan\n2. Jamón\n3. Lechuga\n4. Tomate\n5. Zapato"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Roberto",
+      "cognitive impairment": "moderate",
+      "scene description level": "use only 25 words",
+      "player name": "Roberto",
+      "hobbies": ["gardening", "photography"],
+      "age": 75,
+      "goal": "prepare juice",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 38, "name": "kitchen", "props": "your wife Lucia"}
+      ]
+    },
+    "output": "¡Hola Roberto! Soy Ebo. Vamos a hacer jugo. Aquí tienes los ingredientes, pero uno no corresponde. ¿Qué no debemos comprar?\n\n1. Naranjas\n2. Limón\n3. Batidora\n4. Jugo de piña\n5. Leche"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Daniela",
+      "cognitive impairment": "mild",
+      "scene description level": "use only 20 words",
+      "player name": "Daniela",
+      "hobbies": ["sewing", "cooking"],
+      "age": 68,
+      "goal": "make a smoothie",
+      "number of steps": 3,
+      "scenes": [
+        {"id": 39, "name": "kitchen", "props": "your son Miguel"}
+      ]
+    },
+    "output": "¡Hola Daniela! Soy Ebo. Vamos a hacer un batido. Aquí están los ingredientes, pero uno no corresponde. ¿Qué no debemos comprar?\n\n1. Plátano\n2. Miel\n3. Yogur\n4. Pescado\n5. Licuadora"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Antonio",
+      "cognitive impairment": "moderate",
+      "scene description level": "use only 25 words",
+      "player name": "Antonio",
+      "hobbies": ["fishing", "painting"],
+      "age": 72,
+      "goal": "bake cookies",
+      "number of steps": 4,
+      "scenes": [
+        {"id": 40, "name": "kitchen", "props": "your wife Isabel"}
+      ]
+    },
+    "output": "¡Hola Antonio! Soy Ebo. Vamos a hacer galletas. Aquí tienes los ingredientes. ¿Qué no corresponde?\n\n1. Harina\n2. Azúcar\n3. Chocolate\n4. Leche\n5. Pescado"
+  },
+  {
+    "input": {
+      "game": "ADL sequence",
+      "name": "Rosa",
+      "cognitive impairment": "severe",
+      "scene description level": "use only 30 words",
+      "player name": "Rosa",
+      "hobbies": ["cooking", "traveling"],
+      "age": 71,
+      "goal": "prepare a sandwich",
+      "number of steps": 5,
+      "scenes": [
+        {"id": 41, "name": "kitchen", "props": "your daughter Laura"}
+      ]
+    },
+    "output": "¡Hola Rosa! Soy Ebo. Vamos a hacer un sándwich. Aquí están los ingredientes, pero hay algo que no debemos comprar. ¿Qué no necesitamos?\n\n1. Pan\n2. Jamón\n3. Lechuga\n4. Tomate\n5. Zapato"
+  }
+]
