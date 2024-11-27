@@ -222,4 +222,4 @@ print("Tokenized model saved")
 # Print total execution time
 end_time = time.time()
 total_time = format_time(end_time - start_time)
-print(f"Execution time: {total_time:.2f} second(s)")
+print(f"Execution time: {total_time} second(s)")
