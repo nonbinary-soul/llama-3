@@ -27,6 +27,11 @@ load_in_4bit = True
 
 ###################################################################################
 
+def format_time(seconds):
+    hours, remainder = divmod(seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    return f"{int(hours):02}:{int(minutes):02}:{int(seconds):02}"
+
 start_time=time.time()
 
 def create_model_and_tokenizer(model_name): 
@@ -216,5 +221,5 @@ print("Tokenized model saved")
 
 # Print total execution time
 end_time = time.time()
-total_time = end_time - start_time
+total_time = format_time(end_time - start_time)
 print(f"Execution time: {total_time:.2f} second(s)")
