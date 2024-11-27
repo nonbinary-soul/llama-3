@@ -1,6 +1,7 @@
 #!/home/lee/miniconda3/envs/unsloth_llamacpp/bin/python
 import time, os
 from llama_cpp import Llama
+import json
 
 # load ebo model
 model_path = "./model/unsloth.Q4_K_M.gguf"
@@ -20,23 +21,36 @@ def generate_text_from_prompt(user_prompt, max_tokens = 100, temperature = 0.3, 
    return model_output
 
 def extract_assistant_response(model_output):
-    # Busca el texto después de la etiqueta <ASSISTANT>
-    assistant_tag = "<ASSISTANT>"
+    assistant_tag = "Expected Output:"
     if assistant_tag in model_output:
         return model_output.split(assistant_tag)[-1].strip()
     return model_output.strip()
-   
-if __name__ == "__main__":
-    
-    start_time = time.time()
-    
-    my_prompt = "can you place the mug to the head of the table"
-    ebo_response = generate_text_from_prompt(my_prompt)
-    final_result = extract_assistant_response(ebo_response["choices"][0]["text"])
-    print("\n")
-    print("Model response:", final_result)
-    print("\n")
 
-    end_time = time.time()    
-    execution_time = end_time - start_time
-    print(f"Execution time: {execution_time:.2f} second(s)")
+def format_json_input(input_json, system_prompt):
+    input_str = json.dumps(input_json, ensure_ascii=False)
+    prompt = f"{system_prompt}\n\nInput JSON: {input_str}\n\nExpected Output:"
+    return prompt
+
+def load_json_from_file(file_path):
+    with open(file_path, "r", encoding="utf-8") as file:
+        return json.load(file)
+       
+if __name__ == "__main__":
+    start_time = time.time()
+
+    system_prompt = """Given a JSON, present a shopping list where you must provide one incorrect item that doesn't belong there. If the user identifies the incorrect item correctly, you must provide the prices of the remaining items and ask the user for the total. If the user is correct, proceed; if not, start over to achieve the indicated goal."""
+
+    input_json_path = "./input_data.json"
+    input_json_example = load_json_from_file(input_json_path)
+
+    user_prompt = format_json_input(input_json_example, system_prompt)
+
+   ebo_response = generate_text_from_prompt(user_prompt)
+   final_result = extract_assistant_response(ebo_response["choices"][0]["text"])
+
+   print("\nModel response:", final_result)
+   print("\n")
+
+   end_time = time.time()    
+   execution_time = end_time - start_time
+   print(f"Execution time: {execution_time:.2f} second(s)")
