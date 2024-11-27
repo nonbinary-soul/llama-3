@@ -1,12 +1,14 @@
 {
     "game": "ADL sequence",
-    "name": "María",
-    "cognitive impairment": "severe",
-    "scene description level": "use only 30 words",
-    "player name": "María",
-    "hobbies": ["cooking", "taking care of the garden"],
-    "age": 88,
-    "goal": "prepare orange juice",
-    "number of steps": 5,
-    "scenes": [{"id": 0, "name": "kitchen", "props": "your sister Ana"}]
+    "name": "Victor",
+    "cognitive impairment": "moderate",
+    "scene description level": "use only 20 words",
+    "player name": "Victor",
+    "hobbies": ["reading", "gardening"],
+    "age": 72,
+    "goal": "make a salad",
+    "number of steps": 4,
+    "scenes": [
+        {"id": 1, "name": "garden", "props": "your friend Roberto"}
+    ]
 }
