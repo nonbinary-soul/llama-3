@@ -3,6 +3,11 @@ import time, os
 from llama_cpp import Llama
 import json
 
+def format_time(seconds):
+    hours, remainder = divmod(seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    return f"{int(hours):02}:{int(minutes):02}:{int(seconds):02}"
+   
 # load ebo model
 model_path = "./model/unsloth.Q4_K_M.gguf"
 ebo_model = Llama(model_path=model_path)
@@ -45,12 +50,12 @@ if __name__ == "__main__":
 
     user_prompt = format_json_input(input_json_example, system_prompt)
 
-   ebo_response = generate_text_from_prompt(user_prompt)
-   final_result = extract_assistant_response(ebo_response["choices"][0]["text"])
+    ebo_response = generate_text_from_prompt(user_prompt)
+    final_result = extract_assistant_response(ebo_response["choices"][0]["text"])
 
-   print("\nModel response:", final_result)
-   print("\n")
+    print("\nModel response:", final_result)
+    print("\n")
 
-   end_time = time.time()    
-   execution_time = end_time - start_time
-   print(f"Execution time: {execution_time:.2f} second(s)")
+    end_time = time.time()    
+    execution_time = format_time(end_time - start_time)
+    print(f"Execution time: {execution_time:.2f} second(s)")
