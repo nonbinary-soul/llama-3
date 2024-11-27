@@ -50,30 +50,42 @@ model, tokenizer = create_model_and_tokenizer(MODEL_NAME)
 
 ###################################################################################
 
-# load the dataset
-llama_prompt = """You are an assistant
-<USER>
-{}
+llama_prompt = """
+{system_prompt}
 
-<ASSISTANT>
-{}"""
+Input JSON: {input_json}
+
+Expected Output: {output}
+"""
 
 EOS_TOKEN = tokenizer.eos_token
 
 def formatting_prompts_func(examples):
-    commands = examples["command"]
-    cfrs = examples["cfr"]
+    system_prompt = """Given a JSON, present a shopping list where you must provide one incorrect item that doesn't belong there. If the user identifies the incorrect item correctly, you must provide the prices of the remaining items and ask the user for the total. If the user is correct, proceed; if not, start over to achieve the indicated goal."""
+    
+    inputs = examples["input"]
+    outputs = examples["output"]
+    
     texts = []
-    for command, cfr in zip(commands, cfrs):
-        text = llama_prompt.format(command, cfr) + EOS_TOKEN 
-        texts.append(text)
-    return { "text" : texts, }
-
-pass
+    
+    # Format the llama_prompt for each input-output pair
+    for user_input, user_output in zip(inputs, outputs):
+        input_str = str(user_input)
+        
+        # Using llama_prompt, we format the obtained text from the dataset.json
+        formatted_text = llama_prompt.format(
+            system_prompt=system_prompt,
+            input_json=input_str,
+            output=user_output
+        ) + EOS_TOKEN
+        
+        texts.append(formatted_text)
+    
+    return {"text": texts}
 
 ###################################################################################
 
-dataset = load_dataset('json', data_files='datasets/data-command-cfr.json', split='train')
+dataset = load_dataset('json', data_files='datasets/data-ebo-input-output.json', split='train')
 
 # Showing possible dataset keys to use in 'tokenize' function. In this case, it is available 'command' and 'cfr'
 example = dataset[0]
