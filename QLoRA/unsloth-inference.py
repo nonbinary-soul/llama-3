@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     system_prompt = """Given a JSON, present a shopping list where you must provide one incorrect item that doesn't belong there. If the user identifies the incorrect item correctly, you must provide the prices of the remaining items and ask the user for the total. If the user is correct, proceed; if not, start over to achieve the indicated goal."""
 
-    input_json_path = "./inputs/input_data.json"
+    input_json_path = "./inference-inputs/input_data.json"
     input_json_example = load_json_from_file(input_json_path)
 
     user_prompt = format_json_input(input_json_example, system_prompt)
