@@ -1,0 +1,5 @@
+QLoRA/model/
+QLoRA/checkpoints/
+QLoRA/llama-3-8b-bnb-4bit-qlora/
+QLoRA/_unsloth_sentencepiece_temp/
+QLoRA/llama.cpp/
