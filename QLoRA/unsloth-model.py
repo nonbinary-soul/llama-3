@@ -155,10 +155,10 @@ training_arguments = TrainingArguments(
     max_steps=-1,
     fp16=not is_bfloat16_supported(),
     bf16=is_bfloat16_supported(),
-    per_device_train_batch_size=4,
-    per_device_eval_batch_size=4,
+    per_device_train_batch_size=8,
+    per_device_eval_batch_size=8,
     gradient_accumulation_steps=1,
-    gradient_checkpointing=True,
+    gradient_checkpointing=False,
     learning_rate=2e-4,
     max_grad_norm=0.3,
     warmup_ratio=0.03,
@@ -167,7 +167,7 @@ training_arguments = TrainingArguments(
     lr_scheduler_type="cosine",
     group_by_length=True,
     save_steps=0,
-    logging_steps=20,
+    logging_steps=1000,
 )
 
 # Set supervised fine-tuning parameters
