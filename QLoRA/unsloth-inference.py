@@ -3,15 +3,21 @@ import time, os
 from llama_cpp import Llama
 import json
 import torch
+from accelerate import Accelerator
 
 def format_time(seconds):
     hours, remainder = divmod(seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
     return f"{int(hours):02}:{int(minutes):02}:{int(seconds):02}"
-   
+
+# initialize accelerator
+accelerator = Accelerator()
+
 # load ebo model
 model_path = "./model/unsloth.Q4_K_M.gguf"
 ebo_model = Llama(model_path=model_path)
+
+ebo_model = accelerator.prepare(ebo_model)
 
 def generate_text_from_prompt(user_prompt, max_tokens = 100, temperature = 0.3, top_p = 0.1, echo = True, stop = ["<|end_of_text|>"]):
 
