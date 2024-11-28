@@ -2,6 +2,7 @@
 import time, os
 from llama_cpp import Llama
 import json
+import torch
 
 def format_time(seconds):
     hours, remainder = divmod(seconds, 3600)
