@@ -270,7 +270,7 @@
         {"id": 15, "name": "kitchen", "props": "your daughter Maria"}
       ]
     },
-    "output": "¡Hola Josefina! Soy Ebo. Vamos a hacer un pastel. Aquí tienes los ingredientes. ¿Cuál no pertenece?\n\n1. Harina\n2. Azúcar\n3. Huevos\n4. Leche\n5. Sal"
+    "output": "¡Hola Josefina! Soy Ebo. Vamos a hacer un pastel. Aquí tienes los ingredientes. ¿Qué es lo que no debemos comprar?\n\n1. Harina\n2. Azúcar\n3. Huevos\n4. Leche\n5. Sal"
   }, 
   
   {
@@ -322,7 +322,7 @@
         {"id": 18, "name": "kitchen", "props": "your cousin Marta"}
       ]
     },
-    "output": "¡Hola Fernando! Soy Ebo. Vamos a hacer galletas. Aquí tienes los ingredientes. ¿Qué no corresponde para las galletas?\n\n1. Harina\n2. Azúcar\n3. Mantequilla\n4. Huevos\n5. Tomate"
+    "output": "¡Hola Fernando! Soy Ebo. Vamos a hacer galletas. Aquí tienes los ingredientes. ¿Qué no debemos comprar para las galletas?\n\n1. Harina\n2. Azúcar\n3. Mantequilla\n4. Huevos\n5. Tomate"
   },
   {
     "input": {
@@ -356,7 +356,7 @@
         {"id": 20, "name": "garden", "props": "your wife Carmen"}
       ]
     },
-    "output": "¡Hola Esteban! Soy Ebo. Vamos a preparar una ensalada. Aquí están los ingredientes. ¿Qué no corresponde?\n\n1. Lechuga\n2. Tomate\n3. Aceite\n4. Zanahorias\n5. Miel"
+    "output": "¡Hola Esteban! Soy Ebo. Vamos a preparar una ensalada. Aquí están los ingredientes. ¿Qué no debemos comprar?\n\n1. Lechuga\n2. Tomate\n3. Aceite\n4. Zanahorias\n5. Miel"
   },
   {
     "input": {
@@ -407,7 +407,7 @@
         {"id": 23, "name": "kitchen", "props": "your daughter Sofia"}
       ]
     },
-    "output": "¡Hola Inés! Soy Ebo. Vamos a preparar un batido. Aquí están los ingredientes, pero uno no corresponde. ¿Qué no debemos comprar?\n\n1. Plátano\n2. Yogur\n3. Miel\n4. Pescado\n5. Licuadora"
+    "output": "¡Hola Inés! Soy Ebo. Vamos a preparar un batido. Aquí están los ingredientes. ¿Qué es lo que no debemos comprar?\n\n1. Plátano\n2. Yogur\n3. Miel\n4. Pescado\n5. Licuadora"
   },
   {
     "input": {
@@ -424,7 +424,7 @@
         {"id": 24, "name": "kitchen", "props": "your friend Marta"}
       ]
     },
-    "output": "¡Hola Laura! Soy Ebo. Vamos a hacer galletas. Aquí tienes los ingredientes. ¿Cuál no pertenece?\n\n1. Harina\n2. Azúcar\n3. Chocolate\n4. Huevos\n5. Tomate"
+    "output": "¡Hola Laura! Soy Ebo. Vamos a hacer galletas. Aquí tienes los ingredientes. ¿Qué es lo que no debemos comprar?\n\n1. Harina\n2. Azúcar\n3. Chocolate\n4. Huevos\n5. Tomate"
   },
   {
     "input": {
@@ -543,7 +543,7 @@
         {"id": 31, "name": "kitchen", "props": "your son Marcos"}
       ]
     },
-    "output": "¡Hola Lucía! Soy Ebo. Vamos a hacer un sándwich. Aquí tienes los ingredientes. ¿Qué no corresponde?\n\n1. Pan\n2. Jamón\n3. Lechuga\n4. Queso\n5. Frutas"
+    "output": "¡Hola Lucía! Soy Ebo. Vamos a hacer un sándwich. Aquí tienes los ingredientes. ¿Qué no debemos comprar?\n\n1. Pan\n2. Jamón\n3. Lechuga\n4. Queso\n5. Frutas"
   },
   {
     "input": {
@@ -594,7 +594,7 @@
         {"id": 34, "name": "kitchen", "props": "your friend Alejandro"}
       ]
     },
-    "output": "¡Hola Carlos! Soy Ebo. Vamos a preparar una ensalada. Aquí están los ingredientes. ¿Qué no corresponde?\n\n1. Lechuga\n2. Tomate\n3. Zanahorias\n4. Pepino\n5. Mantequilla"
+    "output": "¡Hola Carlos! Soy Ebo. Vamos a preparar una ensalada. Aquí están los ingredientes. ¿Qué no debemos comprar?\n\n1. Lechuga\n2. Tomate\n3. Zanahorias\n4. Pepino\n5. Mantequilla"
   },
   {
     "input": {
