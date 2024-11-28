@@ -50,8 +50,9 @@ if __name__ == "__main__":
 
     user_prompt = format_json_input(input_json_example, system_prompt)
 
-    ebo_response = generate_text_from_prompt(user_prompt)
-    final_result = extract_assistant_response(ebo_response["choices"][0]["text"])
+    with torch.no_grad():  # Aquí desactivamos el cálculo de gradientes
+        ebo_response = generate_text_from_prompt(user_prompt)
+        final_result = extract_assistant_response(ebo_response["choices"][0]["text"])
 
     print("\nModel response:", final_result)
     print("\n")
