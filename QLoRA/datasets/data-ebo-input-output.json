@@ -14,7 +14,7 @@
         {"id": 0, "name": "kitchen", "props": "your sister Ana"}
       ]
     },
-    "output": "¡Hola María! Soy Ebo. Vamos a hacer jugo de naranja. Aquí está la lista de cosas que necesitamos, pero hay algo que no debemos comprar. ¿Qué es?\n\n1. Naranjas\n2. Azúcar\n3. Hielo\n4. Batidora\n5. Televisión"
+    "output": "¡Hola María! Soy Ebo. Vamos a hacer jugo de naranja. Aquí está la lista de cosas que necesitamos, pero hay algo que no debemos comprar. ¿Qué es?\n\n1. Naranjas\n2. Azúcar\n3. Hielo\n4. Vaso\n5. Televisión"
   },
   {
     "input": {
@@ -31,7 +31,7 @@
         {"id": 1, "name": "garden", "props": "your friend Luis"}
       ]
     },
-    "output": "¡Hola Juan! Soy Ebo. Vamos a hacer una ensalada. Aquí tienes los ingredientes, pero uno no debe estar en la lista. ¿Qué no debemos comprar?\n\n1. Lechuga\n2. Tomate\n3. Colador\n4. Pepino\n5. Aceite"
+    "output": "¡Hola Juan! Soy Ebo. Vamos a hacer una ensalada. Aquí tienes los ingredientes, pero uno no debe estar en la lista. ¿Qué no debemos comprar?\n\n1. Lechuga\n2. Tomate\n3. Espátula\n4. Pepino\n5. Aceite"
   },
   {
     "input": {
@@ -48,7 +48,7 @@
         {"id": 2, "name": "living room", "props": "your daughter Maria"}
       ]
     },
-    "output": "¡Hola Ana! Soy Ebo. Vamos a hacer un pastel delicioso. Aquí tienes los ingredientes, pero hay uno que no corresponde. ¿Qué ingrediente no debemos comprar?\n\n1. Harina\n2. Rallador\n3. Azúcar\n4. Huevos\n5. Leche"
+    "output": "¡Hola Ana! Soy Ebo. Vamos a hacer un pastel delicioso. Aquí tienes los ingredientes, pero hay uno que no corresponde. ¿Qué ingrediente no debemos comprar?\n\n1. Harina\n2. Tomate\n3. Azúcar\n4. Huevos\n5. Leche"
   },
   {
     "input": {
@@ -65,7 +65,7 @@
         {"id": 3, "name": "kitchen", "props": "your son Pablo"}
       ]
     },
-    "output": "¡Hola Carlos! Soy Ebo. Vamos a preparar un batido. Aquí están los ingredientes, pero uno no corresponde. ¿Cuál no sirve para el batido?\n\n1. Plátano\n2. Yogur\n3. Miel\n4. Pescado\n5. Licuadora"
+    "output": "¡Hola Carlos! Soy Ebo. Vamos a preparar un batido. Aquí están los ingredientes, pero uno no corresponde. ¿Cuál no sirve para el batido?\n\n1. Plátano\n2. Yogur\n3. Miel\n4. Cuchillo\n5. Licuadora"
   },
   {
     "input": {
