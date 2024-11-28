@@ -14,7 +14,7 @@ model_path = "./model/unsloth.Q4_K_M.gguf"
 ebo_model = Llama(model_path=model_path)
 
 if torch.cuda.device_count() > 1:
-    print(f"Usando {torch.cuda.device_count()} GPUs!")
+    print(f"Using {torch.cuda.device_count()} GPUs!")
     ebo_model = torch.nn.DataParallel(ebo_model)
 
 def generate_text_from_prompt(user_prompt, max_tokens = 100, temperature = 0.3, top_p = 0.1, echo = True, stop = ["<|end_of_text|>"]):
