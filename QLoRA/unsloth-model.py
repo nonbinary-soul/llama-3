@@ -60,37 +60,49 @@ llama_prompt = """
 
 Input JSON: {input_json}
 
-Expected Output: {output}
+Conversation History:
+{conversation_history}
 """
 
 EOS_TOKEN = tokenizer.eos_token
 
 def formatting_prompts_func(examples):
-    system_prompt = """Given a JSON, present a shopping list where you must provide one incorrect item that doesn't belong there. If the user identifies the incorrect item correctly, you must provide the prices of the remaining items and ask the user for the total. If the user is correct, proceed; if not, start over to achieve the indicated goal."""
-    
-    inputs = examples["input"]
-    outputs = examples["output"]
-    
     texts = []
     
-    # Format the llama_prompt for each input-output pair
-    for user_input, user_output in zip(inputs, outputs):
-        input_str = str(user_input)
+    # Instrucción general del sistema
+    system_prompt = """Given a JSON, present a shopping list where you must provide one incorrect item that doesn't belong there. If the user identifies the incorrect item correctly, you must provide the prices of the remaining items and ask the user for the total. 
+    If the user is correct, proceed; if not, start over to achieve the indicated goal."""
+    
+    for example in examples:
+        # extracting parts
+        input_json = example["input"]
+        assistant_turns = example.get("assistant", "").split("\n")
+        user_turns = example.get("user", "").split("\n")
         
-        # Using llama_prompt, we format the obtained text from the dataset.json
+        # building the conversation history
+        conversation_history = []
+        for assistant, user in zip(assistant_turns, user_turns):
+            conversation_history.append(f"Assistant: {assistant.strip()}")
+            conversation_history.append(f"User: {user.strip()}")
+        
+        # concatenating the conversation history into a single string
+        conversation_history_str = "\n".join(conversation_history)
+        
+        # formatting using llama_prompt
         formatted_text = llama_prompt.format(
             system_prompt=system_prompt,
-            input_json=input_str,
-            output=user_output
+            input_json=str(input_json),
+            conversation_history=conversation_history_str
         ) + EOS_TOKEN
         
         texts.append(formatted_text)
     
     return {"text": texts}
 
+
 ###################################################################################
 
-dataset = load_dataset('json', data_files='datasets/data-ebo-input-output.json', split='train')
+dataset = load_dataset('json', data_files='datasets/data-ebo-conversations.json', split='train')
 
 # Showing possible dataset keys to use in 'tokenize' function. In this case, it is available 'command' and 'cfr'
 example = dataset[0]
@@ -98,7 +110,7 @@ print("Dataset keys:", example.keys())
 
 dataset = dataset.map(
     formatting_prompts_func,
-    batched=True, # process each input individually
+    batched=True # process each input individually
 )
 
 ###################################################################################
