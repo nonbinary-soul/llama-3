@@ -1,13 +1,11 @@
 #!/home/lee/miniconda3/envs/unsloth_llamacpp/bin/python
-# this code has been copied from other source. 
-from huggingface_hub import hf_hub_download
 from langchain_community.llms import LlamaCpp
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
-import atexit, time, os
+import atexit, time
 
 start_time=time.time()
 
@@ -22,46 +20,43 @@ def free_model():
     ebo_model.client.close()
 
 # create the embeddings
-model_name = "mixedbread-ai/mxbai-embed-large-v1"
-model_kwargs = {"device": "cuda"}
-encode_kwargs = {"normalize_embeddings": True}
-
-embeddings_model = HuggingFaceBgeEmbeddings(
-    model_name=model_name,
-    model_kwargs=model_kwargs,
-    encode_kwargs=encode_kwargs
+embedding_model_name = "mixedbread-ai/mxbai-embed-large-v1"
+embedding_kwargs = {"device": "cuda"}
+embedding_function = HuggingFaceBgeEmbeddings(
+    model_name=embedding_model_name,
+    model_kwargs=embedding_kwargs,
+    encode_kwargs={"normalize_embeddings": True}
 )
 
 # create the vector db and the retriever
-db = Chroma(embedding_function=embeddings_model)
+db = Chroma(embedding_function)
 
 retriever = db.as_retriever()
 
-db.add_texts(["harrison has one apple and two orange",
-              "bears has two apples and one banana"])
-
 # create the prompt
-template = """Answer the question based only on the following context: 
+template = """
+Given the context below, respond as follows:
+1. Identify any incorrect item in the shopping list.
+2. Provide the corrected list and their individual prices.
+3. Ask the user to calculate the total.
+4. Confirm if their answer is correct.
+
+Context:
 {context}
 
-<USER>
+User: 
 {question}
 
-<ASSISTANT>
+Assistant:
 """
-prompt = PromptTemplate.from_template(template)
 
-# create the chain
+prompt = PromptTemplate.from_template(template)
 output_parser = StrOutputParser()
 
+# chain setup: retrieval and LLM generation
 def format_docs(docs):
-
-    text = ""
-
-    for d in docs:
-        text += f"- {d.page_content}\n"
-
-    return text
+    """Format retrieved documents for context injection."""
+    return "\n".join(f"- {doc.page_content}" for doc in docs)
 
 setup_and_retrieval = RunnableParallel(
     {"context": retriever | format_docs, "question": RunnablePassthrough()}
@@ -70,26 +65,22 @@ setup_and_retrieval = RunnableParallel(
 chain = setup_and_retrieval | prompt | ebo_model | output_parser
 
 def request_model(question):
-
-    # Check if question is already in database
+    """
+    Main pipeline for retrieving or generating a response.
+    """
+    # retrieve context if it exists
     results = retriever.invoke(question)
-
-    # If so, show them
-    answer=""
     if results:
-        print("Question asked before:")
-        for doc in results:
-            answer += f"{doc.page_content}\n"
-        return answer.strip()
+        formatted_context = "\n".join(doc.page_content for doc in results)
+        print(f"Retrieved context:\n{formatted_context}")
+    else:
+        formatted_context = "No relevant information found in the database."
 
-    # If not, request model a response
-    print("No results, requesting model...")
-    
-    # request question
-    response = chain.invoke(question)    
-    # Add question and response to the database
-    db.add_texts([f"Pregunta: {question} | Respuesta: {response}"])
-    
+    # query the model
+    response = chain.invoke(question)
+
+    # add the new question-response pair to the database
+    db.add_texts([f"Question: {question} | Answer: {response}"])
     return response
 
 """
