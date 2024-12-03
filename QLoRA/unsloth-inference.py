@@ -9,16 +9,16 @@ def format_time(seconds):
     minutes, seconds = divmod(remainder, 60)
     return f"{int(hours):02}:{int(minutes):02}:{int(seconds):02}"
 
-# initialize accelerator
+# Initialize accelerator
 accelerator = Accelerator()
 
-# load ebo model
+# Load model
 model_path = "./model/unsloth.Q4_K_M.gguf"
 ebo_model = Llama(model_path=model_path)
 
 ebo_model = accelerator.prepare(ebo_model)
 
-def generate_text_from_prompt(user_prompt, max_tokens=100, temperature=0.3, top_p=0.1, echo=True, stop=["<|end_of_text|>"]):
+def generate_text_from_prompt(user_prompt, max_tokens=100, temperature=0.3, top_p=0.1, stop=["<|end_of_text|>"]):
     try:
         model_output = ebo_model(
             user_prompt,
@@ -32,16 +32,13 @@ def generate_text_from_prompt(user_prompt, max_tokens=100, temperature=0.3, top_
         print(f"Error during text generation: {e}")
         return ""
 
-def extract_assistant_response(model_output):
-    assistant_tag = "Expected Output:"
-    if assistant_tag in model_output:
-        response = model_output.split(assistant_tag, 1)[-1].strip()
-        return response.split("\n", 1)[0].strip()
-    return model_output.strip()
-
-def format_json_input(input_json, system_prompt):
+def format_json_input(input_json, system_prompt, conversation_history=None):
     input_str = json.dumps(input_json, ensure_ascii=False)
-    return f"{system_prompt}\n\nInput JSON: {input_str}\n\nExpected Output:"
+    if conversation_history:
+        prompt = f"{system_prompt}\n\nInput JSON: {input_str}\n\nConversation History:\n{conversation_history}\n\nExpected Output:"
+    else:
+        prompt = f"{system_prompt}\n\nInput JSON: {input_str}\n\nExpected Output:"
+    return prompt
 
 def load_json_from_file(file_path):
     try:
@@ -61,10 +58,17 @@ if __name__ == "__main__":
     input_json_example = load_json_from_file(input_json_path)
 
     if input_json_example:
-        user_prompt = format_json_input(input_json_example, system_prompt)
-        ebo_response = generate_text_from_prompt(user_prompt)
-        final_result = extract_assistant_response(ebo_response)
-        print("\nModel response:", final_result)
+        conversation_history = ""  # Initialize conversation history
+        while True:
+            user_prompt = format_json_input(input_json_example, system_prompt, conversation_history)
+            assistant_response = generate_text_from_prompt(user_prompt)
+            print("\nAssistant:", assistant_response)
+
+            # Simulate user input or exit condition
+            user_input = input("Your input (or type 'exit' to finish): ")
+            if "exit" in user_input.lower() or "next scene" in assistant_response:
+                break
+            conversation_history += f"Assistant: {assistant_response}\nUser: {user_input}\n"
     else:
         print("Invalid input JSON. Cannot proceed.")
 
