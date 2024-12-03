@@ -22,15 +22,24 @@ def free_model():
 # create the embeddings
 embedding_model_name = "mixedbread-ai/mxbai-embed-large-v1"
 embedding_kwargs = {"device": "cuda"}
+encode_kwargs = {"normalize_embeddings": True}
 embedding_function = HuggingFaceBgeEmbeddings(
     model_name=embedding_model_name,
     model_kwargs=embedding_kwargs,
-    encode_kwargs={"normalize_embeddings": True}
+    encode_kwargs=encode_kwargs
 )
 
-# create the vector db and the retriever
-db = Chroma(embedding_function)
+# creating the vector db
+persist_directory = "./chroma_db"  # directory to persist the database
+collection_name = "shopping_list"  # a unique name for this collection
 
+db = Chroma(
+    embedding_function=embedding_function,
+    collection_name=collection_name,
+    persist_directory=persist_directory
+)
+
+# creating the retriever
 retriever = db.as_retriever()
 
 # create the prompt
