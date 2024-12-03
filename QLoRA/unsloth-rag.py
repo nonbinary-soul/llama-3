@@ -108,13 +108,22 @@ response_time=end_response_time-start_response_time
 print("Response time: ", response_time)
 """
 
-start_response_time=time.time()
-# prompt the LLM
-print(request_model("can you place the mug to the head of the table"))
-end_response_time=time.time()
-response_time=end_response_time-start_response_time
-print("Response time: ", response_time)
+if __name__ == "__main__":
+    print("Initializing RAG system...")
+    print("You can ask questions to the model. Type 'exit' to quit.")
+    while True:
+        user_input = input("Your question: ")
+        if user_input.lower() == "exit":
+            print("Exiting the RAG system. Goodbye!")
+            break
 
-end_time=time.time()
-total_time=end_time-start_time
-print("Execution time: ", total_time)
+        start_response_time=time.time()
+        response = request_model(user_input)
+        print(f"Model's response:\n{response}\n")
+        end_response_time=time.time()
+        response_time=end_response_time-start_response_time
+        print("Response time: ", response_time)
+
+    # Performance metrics
+    end_time = time.time()
+    print("Execution time:", end_time - start_time, "seconds")
