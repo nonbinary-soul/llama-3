@@ -75,9 +75,8 @@ def formatting_prompts_func(examples):
     
     for input_json, assistant_text, user_text in zip(examples["input"], examples["assistant"], examples["user"]):
         # extracting parts
-        input_json = example["input"]
-        assistant_turns = example.get("assistant", "").split("\n")
-        user_turns = example.get("user", "").split("\n")
+        assistant_turns = assistant_text.split("\n")
+        user_turns = user_text.split("\n")
         
         # building the conversation history
         conversation_history = []
