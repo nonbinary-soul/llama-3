@@ -37,8 +37,6 @@ def load_json_from_file(file_path):
     try:
         with open(file_path, "r", encoding="utf-8") as file:
             data = json.load(file)
-        if "input" not in data or not isinstance(data, dict):
-            raise ValueError("Input JSON must contain an 'input' key.")
         return data
     except Exception as e:
         print(f"Error loading JSON file: {e}")
