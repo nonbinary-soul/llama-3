@@ -114,6 +114,9 @@ def formatting_prompts_func(examples):
 
     # Aplicar máscaras (-100) en tokens que no deben contribuir al cálculo del loss
     tokenized_labels[tokenized_labels == tokenizer.pad_token_id] = -100
+    
+    # Verificar que las etiquetas no contienen valores inválidos
+    assert torch.all(tokenized_labels < len(tokenizer) | (tokenized_labels == -100)), "Error: Etiquetas con índices fuera del vocabulario"
 
     return {
         "input_ids": tokenized_inputs["input_ids"],
@@ -201,8 +204,8 @@ training_arguments = TrainingArguments(
     max_steps=-1,
     fp16=not is_bfloat16_supported(),
     bf16=is_bfloat16_supported(),
-    per_device_train_batch_size=8,
-    per_device_eval_batch_size=8,
+    per_device_train_batch_size=4,
+    per_device_eval_batch_size=4,
     gradient_accumulation_steps=1,
     gradient_checkpointing=False,
     learning_rate=2e-4,
