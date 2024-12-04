@@ -70,8 +70,8 @@ def formatting_prompts_func(examples):
     texts = []
     
     # Instrucción general del sistema
-    system_prompt = """Given a JSON, present a shopping list where you must provide one incorrect item that doesn't belong there. If the user identifies the incorrect item correctly, you must provide the prices of the remaining items and ask the user for the total. 
-    If the user is correct, proceed; if not, start over to achieve the indicated goal."""
+    system_prompt = """Dado un JSON, presenta una lista de la compra donde incluyas un elemento incorrecto. Si el usuario lo identifica, proporciónale los precios de los elementos correctos y pregúntale por el total. 
+    Si el usuario acierta, sigue, sino comienza de nuevo."""
     
     for input_json, assistant_text, user_text in zip(examples["input"], examples["assistant"], examples["user"]):
         # extracting parts
