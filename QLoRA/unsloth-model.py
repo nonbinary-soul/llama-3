@@ -66,37 +66,59 @@ Conversation History:
 
 EOS_TOKEN = tokenizer.eos_token
 
+from transformers import AutoTokenizer
+
 def formatting_prompts_func(examples):
+    tokenizer = AutoTokenizer.from_pretrained("unsloth/llama-3-8b-bnb-4bit")
+    tokenizer.add_special_tokens({"pad_token": "[PAD]"})  # Agrega token de padding si no existe.
+
     texts = []
-    
-    # Instrucción general del sistema
+    labels = []
+
     system_prompt = """Dado un JSON, presenta una lista de la compra donde incluyas un elemento incorrecto. Si el usuario lo identifica, proporciónale los precios de los elementos correctos y pregúntale por el total. 
-    Si el usuario acierta, sigue, sino comienza de nuevo."""
-    
+    Si el usuario acierta, sigue; sino comienza de nuevo."""
+
     for input_json, assistant_text, user_text in zip(examples["input"], examples["assistant"], examples["user"]):
-        # extracting parts
-        assistant_turns = assistant_text.split("\n")
-        user_turns = user_text.split("\n")
-        
-        # building the conversation history
-        conversation_history = []
-        for assistant, user in zip(assistant_turns, user_turns):
-            conversation_history.append(f"Assistant: {assistant.strip()}")
-            conversation_history.append(f"User: {user.strip()}")
-        
-        # concatenating the conversation history into a single string
-        conversation_history_str = "\n".join(conversation_history)
-        
-        # formatting using llama_prompt
-        formatted_text = llama_prompt.format(
-            system_prompt=system_prompt,
-            input_json=str(input_json),
-            conversation_history=conversation_history_str
-        ) + EOS_TOKEN
-        
+        conversation = []
+        for user, assistant in zip(user_text.split("\n"), assistant_text.split("\n")):
+            conversation.append(f"<s><INST> {user.strip()} </INST> {assistant.strip()} </s>")
+
+        formatted_text = (
+            f"<s><INST> {system_prompt} </INST>\n\n"
+            f"Contexto inicial: {json.dumps(input_json, ensure_ascii=False)}\n\n"
+            + "\n".join(conversation)
+        )
         texts.append(formatted_text)
-    
-    return {"text": texts}
+
+        # Creamos etiquetas, ignorando los tokens de entrada del usuario
+        labels_text = formatted_text.replace("<INST>", "[MASK]").replace("</INST>", "[MASK]")
+        labels.append(labels_text)
+
+    # Tokenización de textos y etiquetas
+    tokenized_inputs = tokenizer(
+        texts,
+        padding="max_length",
+        truncation=True,
+        max_length=2048,
+        return_tensors="pt"
+    )
+
+    tokenized_labels = tokenizer(
+        labels,
+        padding="max_length",
+        truncation=True,
+        max_length=2048,
+        return_tensors="pt"
+    )["input_ids"]
+
+    # Aplicar máscaras (-100) en tokens que no deben contribuir al cálculo del loss
+    tokenized_labels[tokenized_labels == tokenizer.pad_token_id] = -100
+
+    return {
+        "input_ids": tokenized_inputs["input_ids"],
+        "attention_mask": tokenized_inputs["attention_mask"],
+        "labels": tokenized_labels
+    }
 
 
 ###################################################################################
@@ -107,9 +129,21 @@ dataset = load_dataset('json', data_files='datasets/data-ebo-conversations.json'
 example = dataset[0]
 print("Dataset keys:", example.keys()) 
 
+# Procesar el dataset con la función de formateo
 dataset = dataset.map(
     formatting_prompts_func,
-    batched=True # process each input individually
+    batched=True,
+    remove_columns=["input", "assistant", "user"]  # Remueve columnas originales para evitar confusión
+)
+
+from trl import DataCollatorForCompletionOnlyLM
+
+response_template = "</INST>"
+instruction_template = "<INST>"
+collator = DataCollatorForCompletionOnlyLM(
+    instruction_template=instruction_template,
+    response_template=response_template,
+    tokenizer=tokenizer
 )
 
 ###################################################################################
@@ -183,12 +217,11 @@ training_arguments = TrainingArguments(
 
 # Set supervised fine-tuning parameters
 trainer = SFTTrainer(
-    model=model, # model to train
-    tokenizer=tokenizer, # used for tokenizing text during data preparation and potentially for inference
+    model=model,
+    tokenizer=tokenizer,
     train_dataset=dataset,
-    dataset_text_field="text",
-    packing=False,
-    args=training_arguments, # argument configuration
+    data_collator=collator,
+    args=training_arguments
 )
 
 ######################################################################################################
